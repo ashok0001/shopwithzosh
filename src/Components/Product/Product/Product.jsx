@@ -32,7 +32,7 @@ const navigate=useNavigate()
   };
 
   return (
-    <div className="bg-white">
+    <div className="bg-white -z-20">
         
       <div>
         {/* Mobile filter dialog */}
@@ -222,7 +222,7 @@ const navigate=useNavigate()
 
             <div className="grid grid-cols-1 gap-x-8 gap-y-10 lg:grid-cols-5">
               {/* Filters */}
-              <form className="hidden lg:block">
+              <form className="hidden lg:block border rounded-md p-5">
                 {filters.map((section) => (
                   <Disclosure defaultOpen={true}
                     as="div"
@@ -283,7 +283,7 @@ const navigate=useNavigate()
               </form>
 
               {/* Product grid */}
-              <div className="lg:col-span-4 w-full flex flex-wrap justify-center bg-white border p-5 rounded-md">
+              <div className="lg:col-span-4 w-full flex flex-wrap justify-center bg-white border py-5 rounded-md ">
                 {productdata.map((item) => (
                   <ProductCard product={item} />
                 ))}

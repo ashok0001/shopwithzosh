@@ -11,11 +11,11 @@ const ProductCard = ({ product }) => {
   }
 
   return (
-   <div onClick={handleNavigate} className='productCard w-[15rem] h-[] border m-3 transition-all cursor-pointer'>
+   <div onClick={handleNavigate} className='productCard w-[15rem] border m-3 transition-all cursor-pointer '>
     <div className='h-[20rem]'>
         <img className='h-full w-full object-cover object-left-top' src={image} alt="" />
     </div>
-    <div className='textPart bg-white p-3'>
+    <div className='textPart bg-white p-3 '>
         <div>
             <p className='font-bold opacity-60'>{title}</p>
         <p  className=''>{title2.length>30?title2.substring(0,25)+"...":title2}</p>

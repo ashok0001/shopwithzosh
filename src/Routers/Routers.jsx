@@ -6,15 +6,16 @@ import PrivacyPolicy from "../Pages/PrivacyPolicy";
 import Contact from "../Pages/Contact";
 import TearmsCondition from "../Pages/TearmsCondition";
 import Product from "../Components/Product/Product/Product";
-import ProductPage from "../Components/Product/ProductPage/ProductPage";
-import Navbar from "../Components/Navbar/Navbar";
+
 import ProductDetails from "../Components/Product/ProductDetails/ProductDetails";
+import Navigation from "../Components/Navbar/Navigation";
+import Cart from "../Components/Product/Cart/Cart";
 
 const Routers = () => {
   return (
     <div>
         <div>
-             <Navbar/>
+             <Navigation/>
         </div>
        <div className="pt-10">
         <Routes>
@@ -27,6 +28,7 @@ const Routers = () => {
         <Route path="/contact" element={<Contact/>}></Route>
         <Route path="/men" element={<Product/>}></Route>
         <Route path="/product/:productId" element={<ProductDetails/>}></Route>
+        <Route path="/cart" element={<Cart/>}></Route>
 
       </Routes>
        </div>

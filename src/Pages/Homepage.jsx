@@ -6,10 +6,7 @@ import { homeCarouselData } from "../Components/Carousel/HomeCaroselData";
 const Homepage = () => {
   return (
     <div>
-      <div>
-        <Navbar />
-      </div>
-
+     
       {/* carousel */}
       <div className="">
         {/* <HomeCarousel images={homeCarouselData} /> */}

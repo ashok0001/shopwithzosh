@@ -4,7 +4,7 @@ import ProductCard from "../ProductCard/ProductCard";
 
 const ProductPage = () => {
   return (
-    <div className="px-10">
+    <div className="px-10 -z-10">
       {/* heading part */}
       <div className="flex justify-between py-5">
         <p className="font-bold">Filter</p>

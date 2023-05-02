@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { StarIcon } from "@heroicons/react/20/solid";
 import { RadioGroup } from "@headlessui/react";
+import { useNavigate } from "react-router-dom";
 
 const product = {
   name: "Basic Tee 6-Pack",
@@ -64,10 +65,15 @@ export default function ProductDetails() {
   const [selectedColor, setSelectedColor] = useState(product.colors[0]);
   const [selectedSize, setSelectedSize] = useState(product.sizes[2]);
   const [activeImage, setActiveImage] = useState(null);
+  const navigate=useNavigate();
 
   const handleSetActiveImage = (image) => {
     setActiveImage(image);
   };
+
+  const handleSubmit=()=>{
+navigate("/cart")
+  }
 
   return (
     <div className="bg-white">
@@ -81,7 +87,7 @@ export default function ProductDetails() {
               <li key={breadcrumb.id}>
                 <div className="flex items-center">
                   <a
-                    href={breadcrumb.href}
+                    href={"/"}
                     className="mr-2 text-sm font-medium text-gray-900"
                   >
                     {breadcrumb.name}
@@ -182,7 +188,7 @@ export default function ProductDetails() {
                 </div>
               </div>
 
-              <form className="mt-10">
+              <form className="mt-10" onSubmit={handleSubmit}>
                 {/* Colors */}
                 <div>
                   <h3 className="text-sm font-medium text-gray-900">Color</h3>
