@@ -11,6 +11,7 @@ import DepositWithdraw from "../components/DepositeAndWithdraw";
 import CustomersTable from "../components/CustomersTable";
 import { ThemeProvider, createTheme } from "@mui/material";
 import { customTheme, darkTheme } from "../them/customeThem";
+import "./Admin.css";
 
 
 const darkTheme1 = createTheme({
@@ -28,7 +29,7 @@ const darkTheme1 = createTheme({
 // bg-[#28243d]
 const Dashboard = () => {
   return (
-    <div className="px-10 bg-[red]">
+    <div className="adminContainer px-10">
       <ThemeProvider theme={customTheme}>
         <AdminPannel>
           <Grid container spacing={2}>

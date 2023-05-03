@@ -1,4 +1,4 @@
-import { Navigation } from "mdi-material-ui";
+// import { Navigation } from "mdi-material-ui";
 import React from "react";
 import { Routes, Route } from "react-router-dom";
 import Homepage from "../Pages/Homepage";
@@ -10,14 +10,15 @@ import Product from "../customer/Components/Product/Product/Product";
 import ProductDetails from "../customer/Components/Product/ProductDetails/ProductDetails";
 import Cart from "../customer/Components/Product/Cart/Cart";
 import Dashboard from "../Admin/Views/Admin";
+import Navigation from "../customer/Components/Navbar/Navigation";
 
 const Routers = () => {
   return (
     <div>
         <div>
-             <Navigation/>
+             {/* <Navigation/> */}
         </div>
-       <div className="pt-10">
+       <div className="">
         <Routes>
 
         <Route path="/" element={<Homepage/>}></Route>

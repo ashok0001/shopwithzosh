@@ -11,8 +11,8 @@ const customTheme = createTheme({
     },
     background: {
       default: '',
-      paper: '#121019',
-      // paper:"#000"
+      // paper: '#121019',
+      paper:"rgb(0, 0, 22)"
     },
   },
  
