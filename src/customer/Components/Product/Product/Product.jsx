@@ -9,9 +9,9 @@ import {
   Squares2X2Icon,
 } from "@heroicons/react/20/solid";
 import { filters, sortOptions } from "./FilterData";
-import { productdata } from "../../../data";
 import ProductCard from "../ProductCard/ProductCard";
 import { useNavigate } from 'react-router-dom';
+import { productdata } from "../../../../data";
 
 
 

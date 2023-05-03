@@ -1,6 +1,6 @@
-import { Badge, Button } from "@chakra-ui/react";
 import React from "react";
 import CartItem from "./CartItem";
+import { Badge } from "@mui/material";
 
 const Cart = () => {
   return (
@@ -26,7 +26,7 @@ const Cart = () => {
         </div>
       </div>
       <div className="px-5 sticky top-0 h-[100vh] mt-5 lg:mt-0">
-        <div className="border p-5">
+        <div className="border p-5 bg-white">
             <p className="font-bold opacity-60 pb-4">PRICE DETAILS</p>
         <hr />
 
