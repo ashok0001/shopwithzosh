@@ -11,6 +11,8 @@ import ProductDetails from "../customer/Components/Product/ProductDetails/Produc
 import Cart from "../customer/Components/Product/Cart/Cart";
 import Dashboard from "../Admin/Views/Admin";
 import Navigation from "../customer/Components/Navbar/Navigation";
+import Main from "../Admin/Views/Main";
+import DemoAdmin from "../Admin/Views/DemoAdmin";
 
 const Routers = () => {
   return (
@@ -31,7 +33,8 @@ const Routers = () => {
         <Route path="/product/:productId" element={<ProductDetails/>}></Route>
         <Route path="/cart" element={<Cart/>}></Route>
 
-        <Route path="/admin" element={<Dashboard/>}></Route>
+        <Route path="/admin" element={<Main/>}></Route>
+        <Route path="/demo" element={<DemoAdmin/>}></Route>
 
       </Routes>
        </div>

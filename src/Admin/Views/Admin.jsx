@@ -29,7 +29,7 @@ const darkTheme1 = createTheme({
 // bg-[#28243d]
 const Dashboard = () => {
   return (
-    <div className="adminContainer px-10">
+    <div className="adminContainer ">
       <ThemeProvider theme={customTheme}>
         <AdminPannel>
           <Grid container spacing={2}>
