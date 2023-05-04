@@ -9,10 +9,9 @@ import Contact from "../Pages/Contact";
 import Product from "../customer/Components/Product/Product/Product";
 import ProductDetails from "../customer/Components/Product/ProductDetails/ProductDetails";
 import Cart from "../customer/Components/Product/Cart/Cart";
-import Dashboard from "../Admin/Views/Admin";
-import Navigation from "../customer/Components/Navbar/Navigation";
-import Main from "../Admin/Views/Main";
+
 import DemoAdmin from "../Admin/Views/DemoAdmin";
+import AdminPannel from "../Admin/AdminPannel";
 
 const Routers = () => {
   return (
@@ -33,7 +32,7 @@ const Routers = () => {
         <Route path="/product/:productId" element={<ProductDetails/>}></Route>
         <Route path="/cart" element={<Cart/>}></Route>
 
-        <Route path="/admin" element={<Main/>}></Route>
+        <Route path="/admin" element={<AdminPannel/>}></Route>
         <Route path="/demo" element={<DemoAdmin/>}></Route>
 
       </Routes>

@@ -1,30 +1,28 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
-import AppBar from '@mui/material/AppBar';
 import CssBaseline from '@mui/material/CssBaseline';
 import Toolbar from '@mui/material/Toolbar';
 import List from '@mui/material/List';
-import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import ListItemButton from '@mui/material/ListItemButton';
-import Dashboard from './Admin';
 import { ThemeProvider } from '@emotion/react';
-import { customTheme } from '../them/customeThem';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
 import ListItemIcon from '@mui/material/ListItemIcon';
-import AdminNavbar from '../Navigation/AdminNavbar';
+import { customTheme } from './them/customeThem';
+import AdminNavbar from './Navigation/AdminNavbar';
+import Dashboard from './Views/Admin';
 
 const drawerWidth = 240;
 
 const menu=["Dashboard","Products","Customers","Orders","Total Earnings","Weekly Overview","Monthly Overview","Add Product"]
 
-export default function DemoAdmin() {
+export default function AdminPannel() {
   const theme = useTheme();
   const isLargeScreen = useMediaQuery(theme.breakpoints.up('lg'));
   const [sideBarVisible,setSideBarVisible]=React.useState(false);
