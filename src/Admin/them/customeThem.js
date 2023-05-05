@@ -9,6 +9,9 @@ const customTheme = createTheme({
     secondary: {
       main: '#f48fb1',
     },
+    white:{
+      main:"#fff"
+    },
     background: {
       default: '',
       // paper: '#121019',

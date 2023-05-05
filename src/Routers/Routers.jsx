@@ -12,12 +12,13 @@ import Cart from "../customer/Components/Product/Cart/Cart";
 
 import DemoAdmin from "../Admin/Views/DemoAdmin";
 import AdminPannel from "../Admin/AdminPannel";
+import Navigation from "../customer/Components/Navbar/Navigation";
 
 const Routers = () => {
   return (
     <div>
         <div>
-             {/* <Navigation/> */}
+             <Navigation/>
         </div>
        <div className="">
         <Routes>
@@ -31,6 +32,7 @@ const Routers = () => {
         <Route path="/men" element={<Product/>}></Route>
         <Route path="/product/:productId" element={<ProductDetails/>}></Route>
         <Route path="/cart" element={<Cart/>}></Route>
+      
 
         <Route path="/admin" element={<AdminPannel/>}></Route>
         <Route path="/demo" element={<DemoAdmin/>}></Route>
