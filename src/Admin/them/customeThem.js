@@ -12,6 +12,10 @@ const customTheme = createTheme({
     white:{
       main:"#fff"
     },
+    orange:{
+      main:"#ffdb0f"
+    },
+    
     background: {
       default: '',
       // paper: '#121019',

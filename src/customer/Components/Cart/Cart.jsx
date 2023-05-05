@@ -1,6 +1,6 @@
 import React from "react";
 import CartItem from "./CartItem";
-import { Badge } from "@mui/material";
+import { Badge,Button } from "@mui/material";
 
 const Cart = () => {
   return (
@@ -50,13 +50,13 @@ const Cart = () => {
           </div>
         </div>
 
-        <button
-
-          type="submit"
-          className="w-full mt-10 flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-        >
-          CHECK OUT
-        </button>
+        <Button
+                variant="contained"
+                  type="submit"
+                  sx={{padding:".8rem 2rem", marginTop:"2rem", width:"100%"}}
+                >
+                  Add To Cart
+                </Button>
         </div>
         
       </div>
