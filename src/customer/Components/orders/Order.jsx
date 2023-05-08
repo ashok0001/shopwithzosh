@@ -44,8 +44,8 @@ const Order = () => {
         </Grid>
         <Grid item xs={9}>
           <Box className="space-y-5 ">
-            {[1, 1, 1, 1, 1].map(() => (
-              <OrderCard />
+            {[1, 1, 1, 1, 1].map((item,index) => (
+              <OrderCard product={index+1}/>
             ))}
           </Box>
         </Grid>

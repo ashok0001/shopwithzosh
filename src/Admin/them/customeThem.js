@@ -38,4 +38,30 @@ const darkTheme = createTheme({
   },
 });
 
-export {customTheme,darkTheme};
+const customerTheme = createTheme({
+  palette: {
+    mode: "light", // Set the custom color mode name here
+    primary: {
+      main: '#9155FD',
+    },
+    secondary: {
+      main: '#f48fb1',
+    },
+    white:{
+      main:"#fff"
+    },
+    orange:{
+      main:"#ffdb0f"
+    },
+    
+    background: {
+      default: '',
+      // paper: '#121019',
+      paper:"rgb(0, 0, 22)"
+    },
+  },
+ 
+  
+});
+
+export {customTheme,darkTheme,customerTheme};
