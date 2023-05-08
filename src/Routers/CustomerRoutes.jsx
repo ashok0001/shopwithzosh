@@ -12,6 +12,7 @@ import Cart from "../customer/Components/Cart/Cart";
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import {Button} from "@mui/material";
 import { customTheme } from "../Admin/them/customeThem";
+import Order from "../customer/Components/orders/Order";
 
 const CustomerRoutes = () => {
     const location = useLocation();
@@ -35,6 +36,7 @@ const CustomerRoutes = () => {
         <Route path="/men" element={<Product />}></Route>
         <Route path="/product/:productId" element={<ProductDetails />}></Route>
         <Route path="/cart" element={<Cart />}></Route>
+        <Route path="account/order" element={<Order />}></Route>
         {/* <Route path="*" element={<NotFound />} /> */}
       </Routes>
     </ThemeProvider>
