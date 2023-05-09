@@ -57,7 +57,7 @@ const customerTheme = createTheme({
     background: {
       default: '',
       // paper: '#121019',
-      paper:"rgb(0, 0, 22)"
+      paper:"white"
     },
   },
  

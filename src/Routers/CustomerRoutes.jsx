@@ -27,9 +27,13 @@ const CustomerRoutes = () => {
     // const path=["/","/home","/about","/privacy-policy","/terms-condition","/contact","/men",`/product/${productId}`]
   return (
     <div>
-    {showNavigation && <Navigation />}
+    
     <ThemeProvider theme={customerTheme}>
+    {showNavigation && <Navigation />}
      <Routes>
+     <Route path="/login" element={<Homepage />}></Route>
+     <Route path="/register" element={<Homepage />}></Route>
+
         <Route path="/" element={<Homepage />}></Route>
         <Route path="/home" element={<Homepage />}></Route>
         <Route path="/about" element={<About />}></Route>
