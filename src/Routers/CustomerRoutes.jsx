@@ -16,6 +16,7 @@ import Order from "../customer/Components/orders/Order";
 import OrderDetails from "../customer/Components/orders/OrderDetails";
 import RateProduct from "../customer/Components/orders/RateProduct";
 import Checkout from "../customer/Components/Checkout/Checkout";
+import Footer from "../customer/Components/footer/Footer";
 
 const CustomerRoutes = () => {
     const location = useLocation();
@@ -49,6 +50,7 @@ const CustomerRoutes = () => {
         <Route path="/checkout" element={<Checkout />}></Route>
         {/* <Route path="*" element={<NotFound />} /> */}
       </Routes>
+      <Footer/>
     </ThemeProvider>
       
     </div>
