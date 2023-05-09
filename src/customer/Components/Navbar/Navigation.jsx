@@ -14,13 +14,13 @@ const navigation = {
       featured: [
         {
           name: 'New Arrivals',
-          href: '#',
+          href: '/',
           imageSrc: 'https://tailwindui.com/img/ecommerce-images/mega-menu-category-01.jpg',
           imageAlt: 'Models sitting back to back, wearing Basic Tee in black and bone.',
         },
         {
           name: 'Basic Tees',
-          href: '#',
+          href: '/',
           imageSrc: 'https://tailwindui.com/img/ecommerce-images/mega-menu-category-02.jpg',
           imageAlt: 'Close up of Basic Tee fall bundle with off-white, ochre, olive, and black tees.',
         },
@@ -30,7 +30,7 @@ const navigation = {
           id: 'clothing',
           name: 'Clothing',
           items: [
-            { name: 'Tops', href: '#' },
+            { name: 'Tops', href: `{women/clothing/tops}` },
             { name: 'Dresses', href: '#' },
             { name: 'Pants', href: '#' },
             { name: 'Denim', href: '#' },
@@ -124,8 +124,8 @@ const navigation = {
     },
   ],
   pages: [
-    { name: 'Company', href: '#' },
-    { name: 'Stores', href: '#' },
+    { name: 'Company', href: '/' },
+    { name: 'Stores', href: '/' },
   ],
 }
 
@@ -133,10 +133,16 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
 
+
 export default function Navigation() {
   const [open, setOpen] = useState(false)
   const navigate=useNavigate();
 
+  const handleCategoryClick=(category,section,item,close)=>{
+    navigate(`/${category.id}/${section.id}/${item.name.toLowerCase()}`);
+    close();
+   }
+   
 
   return (
     <div className="bg-white pb-10">
@@ -228,9 +234,9 @@ export default function Navigation() {
                             >
                               {section.items.map((item) => (
                                 <li key={item.name} className="flow-root">
-                                  <a href={item.href} className="-m-2 block p-2 text-gray-500">
-                                    {item.name}
-                                  </a>
+                                  <p  className="-m-2 block p-2 text-gray-500">
+                                    {"item.name"}
+                                  </p>
                                 </li>
                               ))}
                             </ul>
@@ -257,11 +263,7 @@ export default function Navigation() {
                       Sign in
                     </a>
                   </div>
-                  <div className="flow-root">
-                    <a href="/" className="-m-2 block p-2 font-medium text-gray-900">
-                      Create account
-                    </a>
-                  </div>
+                
                 </div>
 
                 <div className="border-t border-gray-200 px-4 py-6">
@@ -315,7 +317,7 @@ export default function Navigation() {
                 <div className="flex h-full space-x-8">
                   {navigation.categories.map((category) => (
                     <Popover key={category.name} className="flex">
-                      {({ open }) => (
+                      {({ open,close }) => (
                         <>
                           <div className="relative flex">
                             <Popover.Button
@@ -380,9 +382,9 @@ export default function Navigation() {
                                           >
                                             {section.items.map((item) => (
                                               <li key={item.name} className="flex">
-                                                <a href={item.href} className="hover:text-gray-800">
+                                                <p onClick={()=>handleCategoryClick(category,section,item,close)} className="cursor-pointer hover:text-gray-800">
                                                   {item.name}
-                                                </a>
+                                                </p>
                                               </li>
                                             ))}
                                           </ul>

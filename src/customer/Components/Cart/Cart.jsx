@@ -1,32 +1,24 @@
 import React from "react";
 import CartItem from "./CartItem";
 import { Badge,Button } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 const Cart = () => {
+  const navigate=useNavigate();
   return (
     <div className="lg:grid grid-cols-3 lg:px-16 relative">
       <div className="lg:col-span-2 lg:px-5 bg-white">
-        <div className="shadow-md px-5 py-3">
-          <div className="">
-            <span>Deliver to : </span>
-            <span className="ml-1 font-semibold">Ashok Zarmariya, 363410</span>
-            <Badge className="ml-3">Home</Badge>
-          </div>
-          <p className="opacity-70">
-            Near altra school, Near altra vision school, 80 Feet Road, Raam...
-          </p>
-        </div>
-        <div className="shadow-md mt-10">
+        <div className=" space-y-3">
           {[1, 1, 1, 1, 1, 1, 1, 1, 1].map(() => (
             <>
-              {" "}
-              <CartItem /> <hr />
+             
+              <CartItem /> 
             </>
           ))}
         </div>
       </div>
-      <div className="px-5 sticky top-0 h-[100vh] mt-5 lg:mt-0">
-        <div className="border p-5 bg-white">
+      <div className="px-5 sticky top-0 h-[100vh] mt-5 lg:mt-0 ">
+        <div className="border p-5 bg-white shadow-lg rounded-md">
             <p className="font-bold opacity-60 pb-4">PRICE DETAILS</p>
         <hr />
 
@@ -51,11 +43,12 @@ const Cart = () => {
         </div>
 
         <Button
+        onClick={()=> navigate("/checkout?step=2")}
                 variant="contained"
                   type="submit"
                   sx={{padding:".8rem 2rem", marginTop:"2rem", width:"100%"}}
                 >
-                  Add To Cart
+                 Check Out
                 </Button>
         </div>
         

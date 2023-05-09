@@ -3,6 +3,7 @@ import React from 'react'
 import OrderTraker from './OrderTraker'
 import StarIcon from '@mui/icons-material/Star';
 import { useNavigate } from 'react-router-dom';
+import AddressCard from '../adreess/Adrees';
 
 
 const OrderDetails = () => {
@@ -11,17 +12,7 @@ const OrderDetails = () => {
     <div className=' px-2 lg:px-10 space-y-7'>
         <Grid container className='p-3 shadow-lg'>
             <Grid item xs={6}>
-                <h1 className='text-lg font-semibold py-4'>Delivery Adress</h1>
-                <div className='space-y-3'>
-                    <p className='font-semibold'>Ashok Zarmariya</p>
-
-                    <p>Mafatiya para, Dudh ni dery pase, at-chuda Mafatiya para, dudhani dery pase, raval vali seri ma At-chuda, Dudhani dery pase, raval vali seri ma Surendranagar District - 363410, Gujarat</p>
-
-                    <div className='space-y-1'>
-                        <p className='font-semibold'>Phone Number</p>
-                        <p>7048552454, 9327574345</p>
-                    </div>
-                </div>
+                <AddressCard/>
             </Grid>
         </Grid>
         <Grid className='shadow-xl rounded-md border'  container sx={{justifyContent:"space-between",alignItems:"center"}}>

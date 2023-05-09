@@ -37,7 +37,7 @@ const RateProduct = () => {
     <div className="px-5 lg:px-20">
         <h1 className="text-xl p-5 shadow-lg mb-8 font-bold">Rate & Review Product</h1>
       <Grid sx={{justifyContent:"space-between"}} container >
-        <Grid className="flex lg:text-lg lg:items-center shadow-lg border rounded-md p-5" item xs={12} lg={5.8}>
+        <Grid className="flex  lg:items-center shadow-lg border rounded-md p-5" item xs={12} lg={5.8}>
           <div>
             <img
               className="w-[5rem] lg:w-[15rem]"
@@ -46,7 +46,7 @@ const RateProduct = () => {
             />
           </div>
           <div className="ml-3 lg:ml-5 space-y-2 lg:space-y-4">
-            <p>Self Design Semi Stitched Lehenga Choli</p>
+            <p className="lg:text-lg">Self Design Semi Stitched Lehenga Choli</p>
             <p className="opacity-50 font-semibold">rayie collection</p>
             <p>₹999</p>
             <p>Size: Free</p>
@@ -63,7 +63,7 @@ const RateProduct = () => {
               <p className="space-y-2 font-semibold">
                 <FiberManualRecordIcon
                   sx={{ width: "15px", height: "15px" }}
-                  className="text-green-600 p-0 mr-2 text-sm"
+                  className="text-green-600  mr-2"
                 />
                 <span>Delivered On Mar 03</span>{" "}
               </p>
@@ -76,7 +76,7 @@ const RateProduct = () => {
           <div className={`${!isLargeScreen ? "py-10" : ""} space-y-5`}>
            
             <div className="shadow-md border rounded-md p-5">
-              <Typography component="legend">Rate This Product</Typography>
+              <Typography className="font-semibold" component="legend">Rate This Product</Typography>
               <Rating
                 name="simple-controlled"
                 value={rating}

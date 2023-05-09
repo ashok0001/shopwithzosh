@@ -15,6 +15,7 @@ import { customTheme, customerTheme } from "../Admin/them/customeThem";
 import Order from "../customer/Components/orders/Order";
 import OrderDetails from "../customer/Components/orders/OrderDetails";
 import RateProduct from "../customer/Components/orders/RateProduct";
+import Checkout from "../customer/Components/Checkout/Checkout";
 
 const CustomerRoutes = () => {
     const location = useLocation();
@@ -35,12 +36,13 @@ const CustomerRoutes = () => {
         <Route path="/privaciy-policy" element={<PrivacyPolicy />}></Route>
         <Route path="/terms-condition" element={<TearmsCondition />}></Route>
         <Route path="/contact" element={<Contact />}></Route>
-        <Route path="/men" element={<Product />}></Route>
+        <Route path="/:lavelOne/:lavelTwo/:lavelThree" element={<Product />}></Route>
         <Route path="/product/:productId" element={<ProductDetails />}></Route>
         <Route path="/cart" element={<Cart />}></Route>
         <Route path="/account/order" element={<Order />}></Route>
         <Route path="/account/order/:productId" element={<OrderDetails />}></Route>
         <Route path="/account/rate/:productId" element={<RateProduct />}></Route>
+        <Route path="/checkout" element={<Checkout />}></Route>
         {/* <Route path="*" element={<NotFound />} /> */}
       </Routes>
     </ThemeProvider>
