@@ -50,7 +50,7 @@ console.log("step",step)
   }
 
   return (
-    <Box className="lg:px-32" sx={{ width: "100%" }}>
+    <Box className="px-5 lg:px-32 " sx={{ width: "100%" }}>
       <Stepper activeStep={step}>
         {steps.map((label, index) => {
           const stepProps = {};
@@ -90,7 +90,11 @@ console.log("step",step)
           </Box>
           <Typography sx={{ my: 6 }}>Title</Typography>
 
-          {step == 2? <AddDeliveryAddressForm handleNext={handleNext}/>:<OrderSummary/>}
+          <div className="my-5">
+            {step == 2? <AddDeliveryAddressForm handleNext={handleNext} />:<OrderSummary/>}
+          </div>
+
+          
 
           
         </React.Fragment>

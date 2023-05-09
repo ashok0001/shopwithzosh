@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Grid, TextField, Button } from '@mui/material';
+import { Grid, TextField, Button,Box } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 
 export default function AddDeliveryAddressForm({handleNext}) {
@@ -26,8 +26,10 @@ export default function AddDeliveryAddressForm({handleNext}) {
   };
 
   return (
-    <React.Fragment>
-      <form onSubmit={handleSubmit}>
+    <React.Fragment className="border shadow-lg">
+      <Box className="border shadow-lg p-5 rounded-md">
+{/* <h1 className='text-lg font-bold pb-3'>{title}</h1> */}
+         <form  onSubmit={handleSubmit} >
         <Grid container spacing={3}>
           <Grid item xs={12} sm={6}>
             <TextField
@@ -107,6 +109,8 @@ export default function AddDeliveryAddressForm({handleNext}) {
           </Grid>
         </Grid>
       </form>
+      </Box>
+     
     </React.Fragment>
   );
 }
