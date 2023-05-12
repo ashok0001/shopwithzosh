@@ -17,7 +17,7 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import { customTheme } from "./them/customeThem";
 import AdminNavbar from "./Navigation/AdminNavbar";
 import Dashboard from "./Views/Admin";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useNavigate } from "react-router-dom";
 import DemoAdmin from "./Views/DemoAdmin";
 import CreateProductForm from "./componets/createProduct/CreateProductFrom";
 import CreateProuductDemo from "./componets/createProduct/CreateProuductDemo";
@@ -27,20 +27,21 @@ import "./AdminPannel.css";
 const drawerWidth = 240;
 
 const menu = [
-  "Dashboard",
-  "Products",
-  "Customers",
-  "Orders",
-  "Total Earnings",
-  "Weekly Overview",
-  "Monthly Overview",
-  "Add Product",
+  {name:"Dashboard",path:"/admin"},
+  {name:"Products",path:"/admin"},
+  {name:"Customers",path:"/admin"},
+  {name:"Orders",path:"/admin"},
+  {name:"Total Earnings",path:"/admin"},
+  {name:"Weekly Overview",path:"/admin"},
+  {name:"Monthly Overview",path:"/admin"},
+  {name:"Add Product",path:"/admin/product/create"},
 ];
 
 export default function AdminPannel() {
   const theme = useTheme();
   const isLargeScreen = useMediaQuery(theme.breakpoints.up("lg"));
   const [sideBarVisible, setSideBarVisible] = React.useState(false);
+  const navigate=useNavigate();
 
   const drawer = (
     <Box
@@ -53,13 +54,13 @@ export default function AdminPannel() {
     >
       {isLargeScreen && <Toolbar />}
       <List>
-        {menu.map((text, index) => (
-          <ListItem key={text} disablePadding>
+        {menu.map((item, index) => (
+          <ListItem key={item.name} disablePadding onClick={()=>navigate(item.path)}>
             <ListItemButton>
               <ListItemIcon>
                 {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
               </ListItemIcon>
-              <ListItemText primary={text} />
+              <ListItemText primary={item.name} />
             </ListItemButton>
           </ListItem>
         ))}
