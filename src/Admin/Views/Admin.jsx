@@ -1,14 +1,14 @@
 // ** MUI Imports
 import Grid from "@mui/material/Grid";
 import AdminPannel from "../../Styles/AdminPannelWrapper";
-import Achivement from "../components/Achivement";
-import MonthlyOverview from "../components/MonthlyOverView";
-import WeeklyOverview from "../components/WeeklyOverview";
-import TotalEarning from "../components/TotalEarning";
+import Achivement from "../tables/Achivement";
+import MonthlyOverview from "../tables/MonthlyOverView";
+import WeeklyOverview from "../tables/WeeklyOverview";
+import TotalEarning from "../tables/TotalEarning";
 import CardStatsVertical from "../../Styles/CardStatsVertical";
-import SalesByCountries from "../components/SalesByContry";
-import DepositWithdraw from "../components/DepositeAndWithdraw";
-import CustomersTable from "../components/CustomersTable";
+import SalesByCountries from "../tables/SalesByContry";
+import DepositWithdraw from "../tables/DepositeAndWithdraw";
+import CustomersTable from "../tables/CustomersTable";
 import { ThemeProvider, createTheme } from "@mui/material";
 import { customTheme, darkTheme } from "../them/customeThem";
 import "./Admin.css";
