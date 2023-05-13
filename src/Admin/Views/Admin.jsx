@@ -12,7 +12,11 @@ import CustomersTable from "../tables/CustomersTable";
 import { ThemeProvider, createTheme } from "@mui/material";
 import { customTheme, darkTheme } from "../them/customeThem";
 import "./Admin.css";
-
+import RecentlyAddeddProducts from "../tables/RecentlyAddeddProducts";
+import SalesOverTime from "../tables/SalesOverTime";
+import RecentOrders from "../tables/RecentOrders";
+import {AssuredWorkloadIcon }from '@mui/icons-material';
+import { BriefcaseVariantOutline, CurrencyUsd, HelpCircleOutline, Poll } from "mdi-material-ui";
 
 const darkTheme1 = createTheme({
   palette: {
@@ -50,7 +54,7 @@ const Dashboard = () => {
                 <Grid item xs={6}>
                   <CardStatsVertical
                     stats="$25.6k"
-                    // icon={<Poll />}
+                    icon={<Poll />}
                     color="success"
                     trendNumber="+42%"
                     title="Total Profit"
@@ -65,7 +69,7 @@ const Dashboard = () => {
                     color="secondary"
                     trendNumber="-15%"
                     subtitle="Past Month"
-                    // icon={<CurrencyUsd />}
+                    icon={<CurrencyUsd />}
                   />
                 </Grid>
                 <Grid item xs={6}>
@@ -73,9 +77,9 @@ const Dashboard = () => {
                     stats="862"
                     trend="negative"
                     trendNumber="-18%"
-                    title="New Project"
-                    subtitle="Yearly Project"
-                    // icon={<BriefcaseVariantOutline />}
+                    title="New Orders"
+                    subtitle="Weekly Orders"
+                    icon={<BriefcaseVariantOutline />}
                   />
                 </Grid>
                 <Grid item xs={6}>
@@ -86,17 +90,24 @@ const Dashboard = () => {
                     trendNumber="-18%"
                     subtitle="Last Week"
                     title="Sales Queries"
-                    // icon={<HelpCircleOutline />}
+                    icon={<HelpCircleOutline />}
                   />
                 </Grid>
               </Grid>
             </Grid>
             <Grid item xs={12} md={6} lg={4}>
-              <SalesByCountries />
+            <CustomersTable />
             </Grid>
             <Grid item xs={12} md={12} lg={8}>
-              <DepositWithdraw />
+              <RecentOrders />
             </Grid>
+             <Grid item xs={12} md={12} lg={8}>
+              <RecentlyAddeddProducts />
+            </Grid>
+            <Grid item xs={12} md={6} lg={4}>
+              <SalesOverTime/>
+            </Grid>
+           
             <Grid item xs={12}>
               <CustomersTable />
             </Grid>

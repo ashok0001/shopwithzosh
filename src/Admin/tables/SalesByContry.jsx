@@ -19,9 +19,9 @@ const data = [
     subtitle: 'USA',
     title: '$8,656k',
     avatarText: 'US',
-    trendNumber: '25.8%',
+
     avatarColor: 'success',
-    trend: <ChevronUp sx={{ color: 'success.main', fontWeight: 600 }} />
+   
   },
   {
     sales: '645k',
@@ -29,9 +29,9 @@ const data = [
     trendDir: 'down',
     title: '$2,415k',
     avatarText: 'UK',
-    trendNumber: '6.2%',
+  
     avatarColor: 'error',
-    trend: <ChevronDown sx={{ color: 'error.main', fontWeight: 600 }} />
+   
   },
   {
     sales: '148k',
@@ -39,9 +39,9 @@ const data = [
     trendDir: 'up',
     avatarText: 'IN',
     subtitle: 'India',
-    trendNumber: '12.4%',
+   
     avatarColor: 'warning',
-    trend: <ChevronUp sx={{ color: 'success.main', fontWeight: 600 }} />
+    
   },
   {
     sales: '86k',
@@ -49,9 +49,9 @@ const data = [
     trendDir: 'down',
     avatarText: 'JA',
     subtitle: 'Japan',
-    trendNumber: '11.9%',
+   
     avatarColor: 'secondary',
-    trend: <ChevronDown sx={{ color: 'error.main', fontWeight: 600 }} />
+    
   },
   {
     sales: '42k',
@@ -59,9 +59,8 @@ const data = [
     trendDir: 'up',
     avatarText: 'KO',
     subtitle: 'Korea',
-    trendNumber: '16.2%',
-    avatarColor: 'error',
-    trend: <ChevronUp sx={{ color: 'success.main', fontWeight: 600 }} />
+    avatarColor: 'secondary',
+  
   }
 ]
 
@@ -85,7 +84,7 @@ const SalesByCountries = () => {
               sx={{
                 display: 'flex',
                 alignItems: 'center',
-                ...(index !== data.length - 1 ? { mb: 5.875 } : {})
+                ...(index !== data.length - 1 ? { mb: 5.61 } : {})
               }}
             >
               <Avatar

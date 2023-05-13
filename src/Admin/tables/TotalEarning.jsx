@@ -16,29 +16,29 @@ const data = [
   {
     progress: 75,
     imgHeight: 20,
-    title: 'Zipcar',
+    title: 'Men',
     color: 'primary',
     amount: '$24,895.65',
-    subtitle: 'Vuejs, React & HTML',
-    imgSrc: '/images/cards/logo-zipcar.png'
+    subtitle: 'Clothing, Footware',
+    imgSrc: 'https://rukminim1.flixcart.com/image/612/612/xif0q/shirt/z/3/7/xl-r-dark-grey-stoneberg-original-imaghghn2vcf5euv.jpeg?q=70'
   },
   {
     progress: 50,
     color: 'info',
     imgHeight: 27,
-    title: 'Bitbank',
+    title: 'Women',
     amount: '$8,650.20',
-    subtitle: 'Sketch, Figma & XD',
-    imgSrc: '/images/cards/logo-bitbank.png'
+    subtitle: 'Clothing, Handbags, jewellery',
+    imgSrc: 'https://rukminim1.flixcart.com/image/612/612/xif0q/lehenga-choli/y/p/c/free-half-sleeve-jk-6-kedar-fab-original-imaghh4unhxgyveg.jpeg?q=70'
   },
   {
     progress: 20,
     imgHeight: 20,
-    title: 'Aviato',
+    title: 'Kids',
     color: 'secondary',
     amount: '$1,245.80',
-    subtitle: 'HTML & Angular',
-    imgSrc: '/images/cards/logo-aviato.png'
+    subtitle: 'Clothing',
+    imgSrc: 'https://rukminim1.flixcart.com/image/612/612/xif0q/kids-t-shirt/i/7/e/10-11-years-bwtrnfulboy-bz55-blive-original-imagmuafh2ennezv.jpeg?q=70'
   }
 ]
 
@@ -112,7 +112,7 @@ const TotalEarning = () => {
                   <Typography variant='body2' sx={{ mb: 2, fontWeight: 600, color: 'text.primary' }}>
                     {item.amount}
                   </Typography>
-                  <LinearProgress color={item.color} value={item.progress} variant='determinate' />
+                  
                 </Box>
               </Box>
             </Box>

@@ -148,6 +148,7 @@ const CreateProductForm = () => {
                 name="topLavelCategory"
                 value={productData.topLavelCategory}
                 onChange={handleChange}
+                label="Top Level Category"
               >
                 <MenuItem value="Men">Men</MenuItem>
                 <MenuItem value="Women">Women</MenuItem>
@@ -157,11 +158,12 @@ const CreateProductForm = () => {
           </Grid>
           <Grid item xs={6} sm={4}>
             <FormControl fullWidth>
-              <InputLabel>Top Level Category</InputLabel>
+              <InputLabel>Second Level Category</InputLabel>
               <Select
                 name="secondLavelCategory"
                 value={productData.secondLavelCategory}
                 onChange={handleChange}
+                label="Second Level Category"
               >
                 <MenuItem value="Men">Clothing</MenuItem>
                 <MenuItem value="Women">Accessories</MenuItem>
@@ -172,11 +174,12 @@ const CreateProductForm = () => {
           </Grid>
           <Grid item xs={6} sm={4}>
             <FormControl fullWidth>
-              <InputLabel>Top Level Category</InputLabel>
+              <InputLabel>Third Level Category</InputLabel>
               <Select
                 name="thirdLavelCategory"
                 value={productData.thirdLavelCategory}
                 onChange={handleChange}
+                label="Third Level Category"
               >
                 <MenuItem value="Tops">Tops</MenuItem>
                 <MenuItem value="Dresses">Dresses</MenuItem>

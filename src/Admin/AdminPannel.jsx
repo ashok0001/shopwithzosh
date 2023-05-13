@@ -23,14 +23,17 @@ import CreateProductForm from "./componets/createProduct/CreateProductFrom";
 import CreateProuductDemo from "./componets/createProduct/CreateProuductDemo";
 import CreateProduct from "../customer/Components/Create/CreateProduct";
 import "./AdminPannel.css";
+import ProductsTable from "./componets/Products/ProductsTable";
+import OrdersTable from "./componets/Orders/OrdersTable";
+import Customers from "./componets/customers/customers";
 
 const drawerWidth = 240;
 
 const menu = [
   {name:"Dashboard",path:"/admin"},
-  {name:"Products",path:"/admin"},
-  {name:"Customers",path:"/admin"},
-  {name:"Orders",path:"/admin"},
+  {name:"Products",path:"/admin/products"},
+  {name:"Customers",path:"/admin/customers"},
+  {name:"Orders",path:"/admin/orders"},
   {name:"Total Earnings",path:"/admin"},
   {name:"Weekly Overview",path:"/admin"},
   {name:"Monthly Overview",path:"/admin"},
@@ -129,6 +132,9 @@ export default function AdminPannel() {
           <Routes>
             <Route path="/" element={ <Dashboard />}></Route>
             <Route path="/product/create" element={<CreateProductForm/>}></Route>
+            <Route path="/products" element={<ProductsTable/>}></Route>
+            <Route path="/orders" element={<OrdersTable/>}></Route>
+            <Route path="/customers" element={<Customers/>}></Route>
             <Route path="/demo" element={<DemoAdmin />}></Route>
           </Routes>
          

@@ -1,28 +1,42 @@
 import * as React from "react";
-import { Grid, TextField, Button, Box } from "@mui/material";
+import { Grid, TextField, Button, Box, Snackbar, Alert } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { getUser, login } from "../../../Redux/Auth/Action";
+import { useEffect } from "react";
+import { useState } from "react";
 
 export default function LoginUserForm({ handleNext }) {
   const navigate = useNavigate();
+  const dispatch=useDispatch();
+  const jwt=localStorage.getItem("jwt");
+  const [openSnackBar,setOpenSnackBar]=useState(false);
+  const { auth } = useSelector((store) => store);
+  const handleCloseSnakbar=()=>setOpenSnackBar(false);
+  useEffect(()=>{
+    if(jwt){
+      dispatch(getUser(jwt))
+    }
+  
+  },[jwt])
+  
+  
+    useEffect(() => {
+      if (auth.user || auth.error) setOpenSnackBar(true)
+    }, [auth.user]);
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    // eslint-disable-next-line no-console
-    console.log({
-      firstName: data.get("firstName"),
-      lastName: data.get("lastName"),
-      address: data.get("address"),
-      city: data.get("city"),
-      state: data.get("state"),
-      zip: data.get("zip"),
-      phoneNumber: data.get("phoneNumber"),
-    });
-    console.log("form data", data);
-    navigate({
-      search: "step=3",
-    });
-    // after perfoming all the opration
-    handleNext();
+    
+    const userData={
+      email: data.get("email"),
+      password: data.get("password"),
+     
+    }
+    console.log("login user",userData);
+  
+    dispatch(login(userData));
+
   };
 
   return (
@@ -47,6 +61,7 @@ export default function LoginUserForm({ handleNext }) {
               label="Password"
               fullWidth
               autoComplete="given-name"
+              type="password"
             />
           </Grid>
 
@@ -71,7 +86,11 @@ export default function LoginUserForm({ handleNext }) {
         </Button>
         </div>
       </div>
-     
+      <Snackbar open={openSnackBar} autoHideDuration={6000} onClose={handleCloseSnakbar}>
+        <Alert onClose={handleCloseSnakbar} severity="success" sx={{ width: '100%' }}>
+          {auth.error?auth.error:auth.user?"Register Success":""}
+        </Alert>
+      </Snackbar>
     </React.Fragment>
   );
 }

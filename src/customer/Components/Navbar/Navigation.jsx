@@ -1,4 +1,4 @@
-import { Fragment, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { Dialog, Popover, Tab, Transition } from "@headlessui/react";
 import {
   Bars3Icon,
@@ -8,9 +8,12 @@ import {
 } from "@heroicons/react/24/outline";
 
 import { Link, useNavigate } from "react-router-dom";
-import { Button } from "@mui/material";
+import { Avatar, Button, Menu, MenuItem } from "@mui/material";
 import { navigation } from "../../../config/navigationMenu";
 import AuthModal from "../Auth/AuthModal";
+import { useDispatch, useSelector } from "react-redux";
+import { deepPurple } from "@mui/material/colors";
+import { getUser, logout } from "../../../Redux/Auth/Action";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -19,8 +22,25 @@ function classNames(...classes) {
 export default function Navigation() {
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
-
+const dispatch=useDispatch();
+  const { auth } = useSelector((store) => store);
   const [openAuthModal, setOpenAuthModal] = useState(false);
+  const [anchorEl, setAnchorEl] = useState(null);
+  const openUserMenu = Boolean(anchorEl);
+const jwt=localStorage.getItem("jwt")
+  useEffect(()=>{
+    if(jwt){
+      dispatch(getUser(jwt))
+    }
+  
+  },[jwt])
+  const handleUserClick=(event)=>{
+    setAnchorEl(event.currentTarget);
+  }
+  const handleCloseUserMenu=(event)=>{
+    setAnchorEl(null);
+  }
+
   const handleOpen = () => {
     setOpenAuthModal(true);
   };
@@ -33,6 +53,16 @@ export default function Navigation() {
     navigate(`/${category.id}/${section.id}/${item.name.toLowerCase()}`);
     close();
   };
+
+  useEffect(() => {
+    if (auth.user) handleClose();
+  }, [auth.user]);
+
+
+  const handleLogout=()=>{
+    handleCloseUserMenu()
+    dispatch(logout())
+  }
 
   return (
     <div className="bg-white pb-10">
@@ -364,12 +394,54 @@ export default function Navigation() {
 
               <div className="ml-auto flex items-center">
                 <div className="hidden lg:flex lg:flex-1 lg:items-center lg:justify-end lg:space-x-6">
-                  <Button
-                    onClick={handleOpen}
-                    className="text-sm font-medium text-gray-700 hover:text-gray-800"
-                  >
-                    Sign in
-                  </Button>
+                  {auth.user ? (
+                    <div>
+                      <Avatar
+                        className="text-white"
+                        onClick={handleUserClick}
+                        aria-controls={open ? "basic-menu" : undefined}
+                        aria-haspopup="true"
+                        aria-expanded={open ? "true" : undefined}
+                        // onClick={handleUserClick}
+                        sx={{
+                          bgcolor: deepPurple[500],
+                          color: "white",
+                          cursor: "pointer",
+                        }}
+                      >
+                        {auth.user?.firstName[0].toUpperCase()}
+                      </Avatar>
+                      {/* <Button
+                        id="basic-button"
+                        aria-controls={open ? "basic-menu" : undefined}
+                        aria-haspopup="true"
+                        aria-expanded={open ? "true" : undefined}
+                        onClick={handleUserClick}
+                      >
+                        Dashboard
+                      </Button> */}
+                      <Menu
+                        id="basic-menu"
+                        anchorEl={anchorEl}
+                        open={openUserMenu}
+                        onClose={handleCloseUserMenu}
+                        MenuListProps={{
+                          "aria-labelledby": "basic-button",
+                        }}
+                      >
+                        <MenuItem onClick={handleCloseUserMenu}>Profile</MenuItem>
+                        <MenuItem onClick={handleCloseUserMenu}>My account</MenuItem>
+                        <MenuItem onClick={handleLogout}>Logout</MenuItem>
+                      </Menu>
+                    </div>
+                  ) : (
+                    <Button
+                      onClick={handleOpen}
+                      className="text-sm font-medium text-gray-700 hover:text-gray-800"
+                    >
+                      Signin
+                    </Button>
+                  )}
                 </div>
 
                 {/* Search */}
