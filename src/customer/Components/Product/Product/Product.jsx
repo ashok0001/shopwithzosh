@@ -10,11 +10,11 @@ import {
 } from "@heroicons/react/20/solid";
 import { filters, sortOptions } from "./FilterData";
 import ProductCard from "../ProductCard/ProductCard";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from "react-router-dom";
 import { productdata } from "../../../../data";
-
-
-
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { findProductsByCategory } from "../../../../Redux/Customers/Product/Action";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -22,18 +22,25 @@ function classNames(...classes) {
 
 export default function Product() {
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
-const navigate=useNavigate()
-
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const jwt = localStorage.getItem("jwt");
+  const param = useParams();
+  const {customersProduct}=useSelector(store=>store)
+  // console.log("store - ",customersProduct);
   const handleSortChange = (newSortBy) => {
-    
     navigate({
-      search: `?sort=${newSortBy}`
+      search: `?sort=${newSortBy}`,
     });
   };
 
+  useEffect(() => {
+    const data = { categoryName: param.lavelThree, jwt };
+    dispatch(findProductsByCategory(data));
+  }, [param.lavelThree]);
+
   return (
     <div className="bg-white -z-20">
-        
       <div>
         {/* Mobile filter dialog */}
         <Transition.Root show={mobileFiltersOpen} as={Fragment}>
@@ -178,7 +185,7 @@ const navigate=useNavigate()
                         <Menu.Item key={option.name}>
                           {({ active }) => (
                             <p
-                              onClick={()=>handleSortChange(option.query)}
+                              onClick={() => handleSortChange(option.query)}
                               className={classNames(
                                 option.current
                                   ? "font-medium text-gray-900"
@@ -224,7 +231,8 @@ const navigate=useNavigate()
               {/* Filters */}
               <form className="hidden lg:block border rounded-md p-5">
                 {filters.map((section) => (
-                  <Disclosure defaultOpen={true}
+                  <Disclosure
+                    defaultOpen={true}
                     as="div"
                     key={section.id}
                     className="border-b border-gray-200 py-6"
@@ -232,7 +240,7 @@ const navigate=useNavigate()
                     {({ open }) => (
                       <>
                         <h3 className="-my-3 flow-root">
-                          <Disclosure.Button  className="flex w-full items-center justify-between bg-white py-3 text-sm text-gray-400 hover:text-gray-500">
+                          <Disclosure.Button className="flex w-full items-center justify-between bg-white py-3 text-sm text-gray-400 hover:text-gray-500">
                             <span className="font-medium text-gray-900">
                               {section.name}
                             </span>
@@ -284,7 +292,7 @@ const navigate=useNavigate()
 
               {/* Product grid */}
               <div className="lg:col-span-4 w-full flex flex-wrap justify-center bg-white border py-5 rounded-md ">
-                {productdata.map((item) => (
+                {customersProduct?.products?.map((item) => (
                   <ProductCard product={item} />
                 ))}
               </div>

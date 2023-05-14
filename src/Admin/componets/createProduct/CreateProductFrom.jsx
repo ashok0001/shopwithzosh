@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Typography } from '@mui/material';
+import { Typography } from "@mui/material";
 import {
   Grid,
   TextField,
@@ -9,12 +9,24 @@ import {
   Select,
   MenuItem,
 } from "@mui/material";
-import { Box } from "mdi-material-ui";
+
 import { Fragment } from "react";
 import { customTheme } from "../../them/customeThem";
 import { ThemeProvider } from "@emotion/react";
-import "./CreateProductForm.css"
+import "./CreateProductForm.css";
+import { useDispatch } from "react-redux";
+import { createProduct } from "../../../Redux/Admin/Product/Action";
+import { dressPage1 } from "../../../Data/dress/page1";
+
+// const initialSize = { name: '', quantity: '' };
+const initialSizes = [
+  { name: "S", quantity: 0 },
+  { name: "M", quantity: 0 },
+  { name: "L", quantity: 0 },
+];
+
 const CreateProductForm = () => {
+  
   const [productData, setProductData] = useState({
     imageUrl: "",
     brand: "",
@@ -23,13 +35,15 @@ const CreateProductForm = () => {
     discountedPrice: "",
     price: "",
     discountPersent: "",
-    size: [{ name: "", quantity: "" }],
+    size: initialSizes,
     quantity: "",
     topLavelCategory: "",
     secondLavelCategory: "",
     thirdLavelCategory: "",
     description: "",
   });
+const dispatch=useDispatch();
+const jwt=localStorage.getItem("jwt")
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -40,7 +54,9 @@ const CreateProductForm = () => {
   };
 
   const handleSizeChange = (e, index) => {
-    const { name, value } = e.target;
+    let { name, value } = e.target;
+    name==="size_quantity"?name="quantity":name=e.target.name;
+
     const sizes = [...productData.size];
     sizes[index][name] = value;
     setProductData((prevState) => ({
@@ -69,14 +85,33 @@ const CreateProductForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    dispatch(createProduct({data:productData,jwt}))
     console.log(productData);
   };
 
+  const handleAddProducts=(data)=>{
+    for(let item of data){
+      const productsData={
+        data:item,
+        jwt,
+      }
+      dispatch(createProduct(productsData))
+    }
+  }
+
   return (
     <Fragment className="createProductContainer ">
-   <Typography variant="h3" sx={{textAlign:"center"}}  className="py-10 text-center ">Add New Product</Typography>
-      <form onSubmit={handleSubmit} className="createProductContainer min-h-screen">
-       
+      <Typography
+        variant="h3"
+        sx={{ textAlign: "center" }}
+        className="py-10 text-center "
+      >
+        Add New Product
+      </Typography>
+      <form
+        onSubmit={handleSubmit}
+        className="createProductContainer min-h-screen"
+      >
         <Grid container spacing={2}>
           <Grid item xs={12}>
             <TextField
@@ -96,6 +131,7 @@ const CreateProductForm = () => {
               onChange={handleChange}
             />
           </Grid>
+        
           <Grid item xs={12} sm={6}>
             <TextField
               fullWidth
@@ -117,28 +153,42 @@ const CreateProductForm = () => {
           <Grid item xs={12} sm={6}>
             <TextField
               fullWidth
-              label="Discounted Price"
-              name="discountedPrice"
-              value={productData.discountedPrice}
+              label="Quantity"
+              name="quantity"
+              value={productData.quantity}
               onChange={handleChange}
+              type="number"
             />
           </Grid>
-          <Grid item xs={12} sm={6}>
+          <Grid item xs={12} sm={4}>
             <TextField
               fullWidth
               label="Price"
               name="price"
               value={productData.price}
               onChange={handleChange}
+              type="number"
             />
           </Grid>
-          <Grid item xs={12} sm={6}>
+          <Grid item xs={12} sm={4}>
+            <TextField
+              fullWidth
+              label="Discounted Price"
+              name="discountedPrice"
+              value={productData.discountedPrice}
+              onChange={handleChange}
+              type="number"
+            />
+          </Grid>
+          
+          <Grid item xs={12} sm={4}>
             <TextField
               fullWidth
               label="Discount Percentage"
               name="discountPersent"
               value={productData.discountPersent}
               onChange={handleChange}
+              type="number"
             />
           </Grid>
           <Grid item xs={6} sm={4}>
@@ -165,10 +215,9 @@ const CreateProductForm = () => {
                 onChange={handleChange}
                 label="Second Level Category"
               >
-                <MenuItem value="Men">Clothing</MenuItem>
-                <MenuItem value="Women">Accessories</MenuItem>
-                <MenuItem value="Kids">Brands</MenuItem>
-
+                <MenuItem value="Clothing">Clothing</MenuItem>
+                <MenuItem value="Accessories">Accessories</MenuItem>
+                <MenuItem value="Brands">Brands</MenuItem>
               </Select>
             </FormControl>
           </Grid>
@@ -187,40 +236,67 @@ const CreateProductForm = () => {
                 <MenuItem value="Saree">Saree</MenuItem>
                 <MenuItem value="Saree">Saree</MenuItem>
                 <MenuItem value="Lengha Choli">Lengha Choli</MenuItem>
-                
               </Select>
             </FormControl>
           </Grid>
-          <Grid item xs={12} >
-            {/* <TextField
-            id="outlined-textarea"
-              fullWidth
-              label="Discount Percentage"
-              name="discountPersent"
-              value={productData.discountPersent}
-              onChange={handleChange}
-            //   rows={4}
-            /> */}
-             <TextField
-             fullWidth
-          id="outlined-multiline-static"
-          label="Description"
-          multiline
-          rows={3}
-          
-        />
-          </Grid>
           <Grid item xs={12}>
-                <Button variant="contained" sx={{p:1.8}} className="py-20" size="large">
-                Add New Product
+            <TextField
+              fullWidth
+              id="outlined-multiline-static"
+              label="Description"
+              multiline
+              name="description"
+              rows={3}
+              onChange={handleChange}
+              value={productData.description}
+            />
+          </Grid>
+          {productData.size.map((size, index) => (
+            <Grid container item spacing={3} >
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  label="Size Name"
+                  name="name"
+                  value={size.name}
+                  onChange={(event) => handleSizeChange(event, index)}
+                  required
+                  fullWidth
+                />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  label="Quantity"
+                  name="size_quantity"
+                  type="number"
+                  onChange={(event) => handleSizeChange(event, index)}
+                  required
+                  fullWidth
+                />
+              </Grid> </Grid>
+            
+          ))}
+          <Grid item xs={12} >
+            <Button
+              variant="contained"
+              sx={{ p: 1.8 }}
+              className="py-20"
+              size="large"
+              type="submit"
+            >
+              Add New Product
             </Button>
-        
+            {/* <Button
+              variant="contained"
+              sx={{ p: 1.8 }}
+              className="py-20 ml-10"
+              size="large"
+              onClick={()=>handleAddProducts(dressPage1)}
+            >
+              Add Products By Loop
+            </Button> */}
           </Grid>
         </Grid>
-        
-        
       </form>
-   
     </Fragment>
   );
 };

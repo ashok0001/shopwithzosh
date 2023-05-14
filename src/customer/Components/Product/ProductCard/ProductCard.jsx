@@ -3,29 +3,29 @@ import "./ProductCard.css";
 import{useNavigate} from "react-router-dom";
 
 const ProductCard = ({ product }) => {
-  const { title, title2, image, price ,selling_price,color,disscount} = product;
+  const { title, brand, imageUrl, price ,discountedPrice,color,discountPersent} = product;
   const navigate= useNavigate();
 
   const handleNavigate=()=>{
-    navigate(`/product/${product.title}`)
+    navigate(`/product/${product?.id}`)
   }
 
   return (
    <div onClick={handleNavigate} className='productCard w-[15rem] border m-3 transition-all cursor-pointer '>
     <div className='h-[20rem]'>
-        <img className='h-full w-full object-cover object-left-top' src={image} alt="" />
+        <img className='h-full w-full object-cover object-left-top' src={imageUrl} alt="" />
     </div>
     <div className='textPart bg-white p-3 '>
         <div>
             <p className='font-bold opacity-60'>{title}</p>
-        <p  className=''>{title2.length>30?title2.substring(0,25)+"...":title2}</p>
+        <p  className=''>{brand}</p>
         <p className='font-semibold opacity-50'>{color}</p>
         </div>
         
         <div className='flex space-x-2 items-center'>
             <p className='font-semibold'>{price}</p>
-            <p className='opacity-50 line-through'>{selling_price}</p>
-            <p className='text-green-600 font-semibold'>{disscount}</p>
+            <p className='opacity-50 line-through'>{discountedPrice}</p>
+            <p className='text-green-600 font-semibold'>{discountPersent}</p>
         </div>
         
     </div>

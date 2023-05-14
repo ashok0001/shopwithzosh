@@ -1,71 +1,65 @@
 import React from "react";
+import { Button } from "@mui/material";
+import { useDispatch } from "react-redux";
+import { removeCartItem, updateCartItem } from "../../../Redux/Customers/Cart/Action";
+import { IconButton } from "@mui/material";
+import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
+import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
 
-const CartItem = () => {
+const CartItem = ({ item }) => {
+  const dispatch = useDispatch();
+  const jwt = localStorage.getItem("jwt");
+
+  const handleRemoveItemFromCart = () => {
+    const data = { cartItemId: item?.id, jwt };
+    dispatch(removeCartItem(data));
+  };
+  const handleUpdateCartItem=(num)=>{
+    const data={data:{quantity:item.quantity+num}, cartItemId:item?.id, jwt}
+    dispatch(updateCartItem(data))
+  }
   return (
     <div className="p-5 shadow-lg border rounded-md">
       <div className="flex items-center">
         <div className="w-[5rem] h-[5rem] lg:w-[9rem] lg:h-[9rem] ">
           <img
-            className="w-full h-full object-cover object-center"
-            src="https://cdn.pixabay.com/photo/2016/12/10/16/57/shoes-1897708__340.jpg"
+            className="w-full h-full object-cover object-top"
+            src={item?.product.imageUrl}
             alt=""
           />
         </div>
         <div className="ml-5 space-y-1">
-          <p className="font-semibold">RapidBox Sneakers For Men</p>
-          <p className="opacity-70">Size: 8,White</p>
-          <p className="opacity-70 mt-2">Seller: Trusource</p>
+          <p className="font-semibold">{item?.product?.title}</p>
+          <p className="opacity-70">Size: {item?.size},White</p>
+          <p className="opacity-70 mt-2">Seller: {item?.product?.brand}</p>
           <div className="flex space-x-2 items-center pt-3">
-            <p className="opacity-50 line-through">{"₹1499"}</p>
-            <p className="font-semibold text-lg">{"₹399"}</p>
-            <p className="text-green-600 font-semibold">{"70%"} off</p>
+            <p className="opacity-50 line-through">₹{item?.product.price}</p>
+            <p className="font-semibold text-lg">
+              ₹{item?.product.discountedPrice}
+            </p>
+            <p className="text-green-600 font-semibold">
+              {item?.product.discountPersent}% off
+            </p>
           </div>
         </div>
       </div>
       <div className="lg:flex items-center lg:space-x-10 pt-4">
         <div className="flex items-center space-x-2 ">
-          <span className="">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth={1.5}
-              stroke="currentColor"
-              className="w-7 h-7 opacity-60"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"
-              />
-            </svg>
-          </span>
+          <IconButton onClick={()=>handleUpdateCartItem(-1)} disabled={item?.quantity<=1} color="primary" aria-label="add an alarm">
+            <RemoveCircleOutlineIcon />
+          </IconButton>
 
-          <span className="py-1 px-7 border rounded-sm">4</span>
-          <span>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth={1.5}
-              stroke="currentColor"
-              className="w-7 h-7 opacity-60"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M15 12H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"
-              />
-            </svg>
-          </span>
+          <span className="py-1 px-7 border rounded-sm">{item?.quantity}</span>
+          <IconButton onClick={()=>handleUpdateCartItem(1)} color="primary" aria-label="add an alarm">
+            <AddCircleOutlineIcon />
+          </IconButton>
         </div>
-        <div className="flex space-x-5 text-sm lg:text-base mt-5 lg:mt-0">
-          <span className="hover:text-blue-700 cursor-pointer font-semibold">
-            SAVE FOR LATER
-          </span>
-          <span className="hover:text-blue-700 cursor-pointer font-semibold">
-            REMOVE
-          </span>
+        <div className="flex text-sm lg:text-base mt-5 lg:mt-0">
+          
+          <Button onClick={handleRemoveItemFromCart} variant="text">
+            Remove{" "}
+          </Button>
+          
         </div>
       </div>
     </div>

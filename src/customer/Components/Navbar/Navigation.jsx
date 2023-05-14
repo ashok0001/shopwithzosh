@@ -50,7 +50,7 @@ const jwt=localStorage.getItem("jwt")
   };
 
   const handleCategoryClick = (category, section, item, close) => {
-    navigate(`/${category.id}/${section.id}/${item.name.toLowerCase()}`);
+    navigate(`/${category.id}/${section.id}/${item.id}`);
     close();
   };
 
