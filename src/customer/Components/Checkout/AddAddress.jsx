@@ -1,26 +1,32 @@
 import * as React from 'react';
 import { Grid, TextField, Button,Box } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { createOrder } from '../../../Redux/Customers/Order/Action';
 
 export default function AddDeliveryAddressForm({handleNext}) {
   const navigate=useNavigate();
+  const dispatch=useDispatch();
+  const jwt=localStorage.getItem("jwt");
+
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     // eslint-disable-next-line no-console
-    console.log({
+   
+    const address={
       firstName: data.get('firstName'),
       lastName: data.get('lastName'),
-      address: data.get('address'),
+      streetAddress: data.get('address'),
       city: data.get('city'),
       state: data.get('state'),
-      zip: data.get('zip'),
-      phoneNumber: data.get('phoneNumber'),
-    });
-    console.log("form data",data)
-    navigate({
-      search:"step=3"
-    })
+      zipCode: data.get('zip'),
+      mobile: data.get('phoneNumber'),
+    }
+    console.log("form data",address)
+   dispatch(createOrder({address,jwt,navigate}))
+
     // after perfoming all the opration
     handleNext();
   };
@@ -103,7 +109,7 @@ export default function AddDeliveryAddressForm({handleNext}) {
             />
           </Grid>
           <Grid item xs={12}>
-            <Button type="submit" variant="contained" color="primary">
+            <Button sx={{padding:"1rem 1.5rem"}} size='large' type="submit" variant="contained" color="primary">
               Add Delivery Address
             </Button>
           </Grid>

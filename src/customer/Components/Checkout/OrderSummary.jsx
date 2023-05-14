@@ -1,22 +1,46 @@
 import React from "react";
 import { Badge, Button } from "@mui/material";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import CartItem from "../Cart/CartItem";
-import AddressCard from "../adreess/Adrees";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { getOrderById } from "../../../Redux/Customers/Order/Action";
+import AddressCard from "../adreess/AdreessCard";
+import { createPayment } from "../../../Redux/Customers/Payment/Action";
 
 const OrderSummary = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+const orderId = searchParams.get("order_id");
+const dispatch=useDispatch();
+  const jwt=localStorage.getItem("jwt");
+  const {order}=useSelector(state=>state)
+
+console.log("orderId ", order.order)
+
+useEffect(()=>{
+  const data={orderId,jwt}
+  dispatch(getOrderById(data))
+},[orderId])
+
+const handleCreatePayment=()=>{
+  const data={orderId:order.order?.id,jwt}
+  dispatch(createPayment(data))
+}
+  
+
   return (
     <div className="space-y-5">
         <div className="p-5 shadow-lg rounded-md border ">
-            <AddressCard/>
+            <AddressCard address={order.order?.shippingAddress}/>
         </div>
       <div className="lg:grid grid-cols-3 relative justify-between">
         <div className="lg:col-span-2 ">
           <div className=" space-y-3">
-            {[1, 1].map(() => (
+            {order.order?.orderItems.map((item) => (
               <>
-                <CartItem />
+                <CartItem item={item} showButton={false}/>
               </>
             ))}
           </div>
@@ -28,7 +52,7 @@ const OrderSummary = () => {
 
             <div className="space-y-3 font-semibold">
               <div className="flex justify-between pt-3 text-black ">
-                <span>Price (3 item)</span>
+                <span>Price ({order.order?.orderItems.length} item)</span>
                 <span>₹1,18,985</span>
               </div>
               <div className="flex justify-between">
@@ -42,12 +66,12 @@ const OrderSummary = () => {
               <hr />
               <div className="flex justify-between font-bold text-lg">
                 <span>Total Amount</span>
-                <span className="text-green-700">₹83,885</span>
+                <span className="text-green-700">₹{order.order?.totalPrice}</span>
               </div>
             </div>
 
             <Button
-              onClick={() => navigate("/checkout?step=2")}
+              onClick={handleCreatePayment}
               variant="contained"
               type="submit"
               sx={{ padding: ".8rem 2rem", marginTop: "2rem", width: "100%" }}

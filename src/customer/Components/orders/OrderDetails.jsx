@@ -3,7 +3,7 @@ import React from 'react'
 import OrderTraker from './OrderTraker'
 import StarIcon from '@mui/icons-material/Star';
 import { useNavigate } from 'react-router-dom';
-import AddressCard from '../adreess/Adrees';
+import AddressCard from '../adreess/AdreessCard';
 
 
 const OrderDetails = () => {

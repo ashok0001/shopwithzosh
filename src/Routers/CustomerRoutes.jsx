@@ -17,6 +17,7 @@ import OrderDetails from "../customer/Components/orders/OrderDetails";
 import RateProduct from "../customer/Components/orders/RateProduct";
 import Checkout from "../customer/Components/Checkout/Checkout";
 import Footer from "../customer/Components/footer/Footer";
+import PaymentSuccess from "../customer/Components/paymentSuccess/PaymentSuccess";
 
 const CustomerRoutes = () => {
     const location = useLocation();
@@ -48,6 +49,7 @@ const CustomerRoutes = () => {
         <Route path="/account/order/:productId" element={<OrderDetails />}></Route>
         <Route path="/account/rate/:productId" element={<RateProduct />}></Route>
         <Route path="/checkout" element={<Checkout />}></Route>
+        <Route path="/payment" element={<PaymentSuccess />}></Route>
         {/* <Route path="*" element={<NotFound />} /> */}
       </Routes>
       <Footer/>

@@ -6,7 +6,7 @@ import { IconButton } from "@mui/material";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
 
-const CartItem = ({ item }) => {
+const CartItem = ({ item,showButton }) => {
   const dispatch = useDispatch();
   const jwt = localStorage.getItem("jwt");
 
@@ -43,7 +43,7 @@ const CartItem = ({ item }) => {
           </div>
         </div>
       </div>
-      <div className="lg:flex items-center lg:space-x-10 pt-4">
+     {showButton&& <div className="lg:flex items-center lg:space-x-10 pt-4">
         <div className="flex items-center space-x-2 ">
           <IconButton onClick={()=>handleUpdateCartItem(-1)} disabled={item?.quantity<=1} color="primary" aria-label="add an alarm">
             <RemoveCircleOutlineIcon />
@@ -61,7 +61,7 @@ const CartItem = ({ item }) => {
           </Button>
           
         </div>
-      </div>
+      </div>}
     </div>
   );
 };

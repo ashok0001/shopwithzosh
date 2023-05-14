@@ -68,7 +68,7 @@ const cartReducer = (state = initialState, action) => {
       return {
         ...state,
         cartItems: state.cartItems.map((item) =>
-          item.product === action.payload.product ? action.payload : item
+          item.id === action.payload.id ? action.payload : item
         ),
         loading: false,
       };

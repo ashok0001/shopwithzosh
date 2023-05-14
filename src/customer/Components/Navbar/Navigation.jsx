@@ -7,7 +7,7 @@ import {
   XMarkIcon,
 } from "@heroicons/react/24/outline";
 
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Avatar, Button, Menu, MenuItem } from "@mui/material";
 import { navigation } from "../../../config/navigationMenu";
 import AuthModal from "../Auth/AuthModal";
@@ -22,31 +22,31 @@ function classNames(...classes) {
 export default function Navigation() {
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
-const dispatch=useDispatch();
+  const dispatch = useDispatch();
   const { auth } = useSelector((store) => store);
   const [openAuthModal, setOpenAuthModal] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
   const openUserMenu = Boolean(anchorEl);
-const jwt=localStorage.getItem("jwt")
-  useEffect(()=>{
-    if(jwt){
-      dispatch(getUser(jwt))
+  const jwt = localStorage.getItem("jwt");
+  const location=useLocation();
+  useEffect(() => {
+    if (jwt) {
+      dispatch(getUser(jwt));
     }
-  
-  },[jwt])
-  const handleUserClick=(event)=>{
+  }, [jwt]);
+  const handleUserClick = (event) => {
     setAnchorEl(event.currentTarget);
-  }
-  const handleCloseUserMenu=(event)=>{
+  };
+  const handleCloseUserMenu = (event) => {
     setAnchorEl(null);
-  }
+  };
 
   const handleOpen = () => {
     setOpenAuthModal(true);
   };
   const handleClose = () => {
     setOpenAuthModal(false);
-    navigate("/");
+   
   };
 
   const handleCategoryClick = (category, section, item, close) => {
@@ -55,14 +55,18 @@ const jwt=localStorage.getItem("jwt")
   };
 
   useEffect(() => {
-    if (auth.user) handleClose();
+    if (auth.user){ 
+      handleClose();
+    }
+    if(location.pathname==="/login" || location.pathname==="/register"){
+      navigate(-1)
+    }
   }, [auth.user]);
 
-
-  const handleLogout=()=>{
-    handleCloseUserMenu()
-    dispatch(logout())
-  }
+  const handleLogout = () => {
+    handleCloseUserMenu();
+    dispatch(logout());
+  };
 
   return (
     <div className="bg-white pb-10">
@@ -429,8 +433,12 @@ const jwt=localStorage.getItem("jwt")
                           "aria-labelledby": "basic-button",
                         }}
                       >
-                        <MenuItem onClick={handleCloseUserMenu}>Profile</MenuItem>
-                        <MenuItem onClick={handleCloseUserMenu}>My account</MenuItem>
+                        <MenuItem onClick={handleCloseUserMenu}>
+                          Profile
+                        </MenuItem>
+                        <MenuItem onClick={handleCloseUserMenu}>
+                          My account
+                        </MenuItem>
                         <MenuItem onClick={handleLogout}>Logout</MenuItem>
                       </Menu>
                     </div>
