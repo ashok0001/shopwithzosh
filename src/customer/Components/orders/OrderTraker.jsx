@@ -8,6 +8,7 @@ import { Typography} from '@mui/material';
 
 
 const steps = [
+  "Placed",
   'Order Confirmed',
   'Shipped',
   'Out For Delivery',
@@ -16,12 +17,12 @@ const steps = [
 
 
 
-export default function OrderTraker() {
+export default function OrderTraker({activeStep}) {
     
   return (
-    <Box sx={{ width: '100%' }}>
+    <Box sx={{ width: '100%' }} >
       
-      <Stepper activeStep={1} alternativeLabel>
+      <Stepper activeStep={activeStep} alternativeLabel>
         {steps.map((label) => (
           <Step key={label}>
             <StepLabel  sx={{ color: '#9155FD',fontSize: '44px' }}  className={``}>{label}</StepLabel>

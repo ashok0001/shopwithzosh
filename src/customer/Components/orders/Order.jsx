@@ -51,8 +51,8 @@ const Order = () => {
         </Grid>
         <Grid item xs={9}>
           <Box className="space-y-5 ">
-            {order.orders.forEach(order => {
-              order.orderItems.map((item,index)=> <OrderCard product={index + 1} />)
+            {order.orders?.map((order )=> {
+              return order?.orderItems?.map((item,index)=> <OrderCard item={item} order={order} />)
             })}
           </Box>
         </Grid>

@@ -1,6 +1,7 @@
 import {
   Avatar,
   Box,
+  Button,
   Card,
   CardHeader,
   Chip,
@@ -17,25 +18,40 @@ import {
   Typography,
 } from "@mui/material";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import { useNavigate } from "react-router-dom";
 import { Grid, Select } from "@mui/material";
 import { dressPage1 } from "../../../Data/dress/page1";
+import { useDispatch, useSelector } from "react-redux";
+import { getOrders } from "../../../Redux/Admin/Orders/Action";
 
 const OrdersTable = () => {
   const navigate = useNavigate();
   const [formData,setFormData]=useState({status:"",sort:""})
+  const [updateOrderStatus,setUpdateOrderStatus]=useState(null);
+  const dispatch=useDispatch();
+  const jwt=localStorage.getItem("jwt");
+  const {adminsOrder}=useSelector(store=>store);
 
   const handleChange = (event) => {
    const name=event.target.name;
    const value=event.target.value;
 
-   setFormData({...formData,[name]:value})
+   setFormData({...formData,[name]:value});
+
   };
   function handlePaginationChange(event, value) {
     console.log("Current page:", value);
   }
+
+  useEffect(()=>{
+    dispatch(getOrders({jwt}));
+  },[jwt])
+
+//   useEffect(()=>{
+// setUpdateOrderStatus(item.orderStatus==="PENDING"?"PENDING": item.orderStatus==="PLACED"?"CONFIRMED":item.orderStatus==="CONFIRMED"?"SHIPPED":"DELEVERED")
+//   },[adminsOrder.orders])
 
   return (
     <Box>
@@ -121,12 +137,13 @@ const OrdersTable = () => {
                 <TableCell>Title</TableCell>
 
                 <TableCell>Price</TableCell>
-                <TableCell>Order Id</TableCell>
+                <TableCell>Id</TableCell>
                 <TableCell>Status</TableCell>
+                <TableCell>Update Status</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
-              {dressPage1.slice(0, 10).map((item, index) => (
+              {adminsOrder?.orders?.map((item, index) => (
                 <TableRow
                   hover
                   key={item.name}
@@ -147,24 +164,28 @@ const OrdersTable = () => {
                           fontSize: "0.875rem !important",
                         }}
                       >
-                        {item.title}
+                        {item?.orderItems.map((order)=><span className=""> {order.product.title},</span> )}
                       </Typography>
-                      <Typography variant="caption">{item.brand}</Typography>
+                      <Typography variant="caption">{item?.orderItems.map((order)=><span className="opacity-60"> {order.product.brand},</span> )}</Typography>
                     </Box>
                   </TableCell>
 
-                  <TableCell>{item.discountedPrice}</TableCell>
-                  <TableCell>{index + 1}</TableCell>
-                  <TableCell>
+                  <TableCell>{item.totalPrice}</TableCell>
+                  <TableCell>{item.id}</TableCell>
+                  <TableCell className="text-white">
                     <Chip
-                      sx={{ color: "white" }}
-                      label="PLACED"
+                      sx={{ color: "white !important",fontWeight:"bold" }}
+                      label={item.orderStatus}
                       size="small"
-                      color="success"
+                      color={item.orderStatus==="PENDING"?"info":"success"}
                       className="text-white"
                     />
                   </TableCell>
+                  <TableCell className="text-white">
+                    <Button>{item.orderStatus==="PENDING"?"PENDING": item.orderStatus==="PLACED"?"CONFIRMED":item.orderStatus==="CONFIRMED"?"SHIPPED":"DELEVERED"}</Button>
+                  </TableCell>
                 </TableRow>
+                
               ))}
             </TableBody>
           </Table>
