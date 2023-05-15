@@ -94,7 +94,7 @@ console.log("step",step)
             {step == 2? <AddDeliveryAddressForm handleNext={handleNext} />:<OrderSummary/>}
           </div>
 
-          
+          {/* <AddDeliveryAddressForm handleNext={handleNext} /> */}
 
           
         </React.Fragment>

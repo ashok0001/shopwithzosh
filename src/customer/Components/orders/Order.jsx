@@ -1,8 +1,8 @@
 import { Box, Grid } from "@mui/material";
-import React, { useEffect } from "react";
+import React, { useEffect, useSyncExternalStore } from "react";
 import OrderCard from "./OrderCard";
 import FiberManualRecordIcon from "@mui/icons-material/FiberManualRecord";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { getOrderHistory } from "../../../Redux/Customers/Order/Action";
 
 const orderStatus = [
@@ -15,6 +15,7 @@ const orderStatus = [
 const Order = () => {
   const dispatch = useDispatch();
   const jwt = localStorage.getItem("jwt");
+  const {order}=useSelector(store=>store);
 
   useEffect(() => {
     dispatch(getOrderHistory({ jwt }));
@@ -50,9 +51,9 @@ const Order = () => {
         </Grid>
         <Grid item xs={9}>
           <Box className="space-y-5 ">
-            {[1, 1, 1, 1, 1].map((item, index) => (
-              <OrderCard product={index + 1} />
-            ))}
+            {order.orders.forEach(order => {
+              order.orderItems.map((item,index)=> <OrderCard product={index + 1} />)
+            })}
           </Box>
         </Grid>
       </Grid>
