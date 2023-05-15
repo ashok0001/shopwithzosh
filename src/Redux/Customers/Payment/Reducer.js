@@ -1,4 +1,4 @@
-import { CREATE_PAYMENT_FAILURE, CREATE_PAYMENT_REQUEST, CREATE_PAYMENT_SUCCESS } from "./ActionType";
+import { CREATE_PAYMENT_FAILURE, CREATE_PAYMENT_REQUEST, CREATE_PAYMENT_SUCCESS, UPDATE_PAYMENT_FAILURE, UPDATE_PAYMENT_REQUEST, UPDATE_PAYMENT_SUCCESS } from "./ActionType";
 
  const initialState = {};
   
@@ -20,6 +20,25 @@ import { CREATE_PAYMENT_FAILURE, CREATE_PAYMENT_REQUEST, CREATE_PAYMENT_SUCCESS 
          loading: false,
          error: action.payload,
        };
+       case UPDATE_PAYMENT_REQUEST:
+      return {
+        ...state,
+        loading: true,
+      };
+    case UPDATE_PAYMENT_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        payment: action.payload,
+        error: "",
+      };
+    case UPDATE_PAYMENT_FAILURE:
+      return {
+        ...state,
+        loading: false,
+        payment: {},
+        error: action.payload,
+      };
      default:
        return state;
    }

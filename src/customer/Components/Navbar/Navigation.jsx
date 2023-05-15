@@ -67,6 +67,10 @@ export default function Navigation() {
     handleCloseUserMenu();
     dispatch(logout());
   };
+  const handleMyOrderClick=()=>{
+    handleCloseUserMenu()
+    navigate("/account/order")
+  }
 
   return (
     <div className="bg-white pb-10">
@@ -436,8 +440,9 @@ export default function Navigation() {
                         <MenuItem onClick={handleCloseUserMenu}>
                           Profile
                         </MenuItem>
-                        <MenuItem onClick={handleCloseUserMenu}>
-                          My account
+                        
+                        <MenuItem onClick={handleMyOrderClick}>
+                          My Orders
                         </MenuItem>
                         <MenuItem onClick={handleLogout}>Logout</MenuItem>
                       </Menu>
