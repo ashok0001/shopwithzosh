@@ -10,7 +10,7 @@ import {
   GET_ORDER_HISTORY_REQUEST,
   GET_ORDER_HISTORY_SUCCESS,
 } from "./ActionType";
-import { API_BASE_URL } from "../../../config/api";
+import api, { API_BASE_URL } from "../../../config/api";
 
 export const createOrder = (reqData) => async (dispatch) => {
   console.log("req data ", reqData);
@@ -49,20 +49,14 @@ export const createOrder = (reqData) => async (dispatch) => {
   }
 };
 
-export const getOrderById = (reqData) => async (dispatch) => {
-  console.log("get order req ", reqData);
+export const getOrderById = (orderId) => async (dispatch) => {
+  console.log("get order req ", orderId);
   try {
     dispatch({ type: GET_ORDER_BY_ID_REQUEST });
 
-    const config = {
-      headers: {
-        Authorization: `Bearer ${reqData.jwt}`,
-      },
-    };
-
-    const { data } = await axios.get(
-      `${API_BASE_URL}/api/orders/${reqData.orderId}`,
-      config
+    const { data } = await api.get(
+      `/api/orders/${orderId}`,
+      
     );
     console.log("order by id ", data);
     dispatch({

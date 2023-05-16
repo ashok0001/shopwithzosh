@@ -1,4 +1,4 @@
-import { Box, Button, Grid,Typography } from '@mui/material'
+import { Alert, Box, Button, Grid,Typography } from '@mui/material'
 import React from 'react'
 import OrderTraker from './OrderTraker'
 import StarIcon from '@mui/icons-material/Star';
@@ -8,7 +8,7 @@ import { deepPurple } from '@mui/material/colors';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { getOrderById } from '../../../Redux/Customers/Order/Action';
-
+import CheckIcon from '@mui/icons-material/Check';
 
 const OrderDetails = () => {
   const dispatch = useDispatch();
@@ -25,7 +25,7 @@ const OrderDetails = () => {
     const navigate=useNavigate();
   return (
     <div className=' px-2 lg:px-36 space-y-7 '>
-      
+     
         <Grid container className='p-3 shadow-lg'>
           
           <Grid xs={12}>
@@ -58,7 +58,8 @@ const OrderDetails = () => {
         <Grid container className='space-y-5'>
           
           {order.order?.orderItems.map((item)=> 
-          <Grid container item className='shadow-xl rounded-md p-5 border' sx={{alignItems:"center",justifyContent:"space-between"}}> <Grid item xs={6}> <div className="flex  items-center ">
+          <Grid container item className='shadow-xl rounded-md p-5 border' sx={{alignItems:"center",justifyContent:"space-between"}}> 
+          <Grid item xs={6}> <div className="flex  items-center ">
             <img
               className="w-[5rem] h-[5rem] object-cover object-top"
               src={item?.product.imageUrl}
@@ -70,7 +71,7 @@ const OrderDetails = () => {
                 <span>Color: pink</span> <span>Size: {item.size}</span>
               </p>
               <p>Seller: {item.product.brand}</p>
-              <p>{item.price}</p>
+              <p>₹{item.price}</p>
             </div>
           </div>
           </Grid>
