@@ -41,30 +41,28 @@ const OrderDetails = () => {
             <OrderTraker
               activeStep={
                 order.order?.orderStatus === "PLACED"
-                  ? 1
-                  : order.order?.orderStatus === "CONFIRMED"
                   ? 2
-                  : order.order?.orderStatus === "SHIPPED"
+                  : order.order?.orderStatus === "CONFIRMED"
                   ? 3
-                  : 4
+                  : order.order?.orderStatus === "SHIPPED"
+                  ? 4
+                  : 5
               }
             />
           </Grid>
           <Grid item>
-            <Button sx={{ color: deepPurple[500] }} variant="text">
+           {order.order?.orderStatus==="DELIVERED" && <Button sx={{ color: ""}} color="error" variant="text" >
+              RETURN
+            </Button>}
+
+            {order.order?.orderStatus!=="DELIVERED" && <Button sx={{ color: deepPurple[500] }} variant="text">
               cancel order
-            </Button>
+            </Button>}
           </Grid>
         </Grid>
       </Box>
 
-      <Grid
-        className="shadow-xl rounded-md border"
-        container
-        sx={{ justifyContent: "space-between", alignItems: "center" }}
-      >
-        <Grid item xs={3}></Grid>
-      </Grid>
+    
 
       <Grid container className="space-y-5">
         {order.order?.orderItems.map((item) => (
