@@ -7,7 +7,7 @@ export const filters = [
       options: [
         { value: 'white', label: 'White' },
         { value: 'beige', label: 'Beige' },
-        { value: 'blue', label: 'Blue', checked: true },
+        { value: 'blue', label: 'Blue'},
         { value: 'brown', label: 'Brown' },
         { value: 'green', label: 'Green' },
         { value: 'purple', label: 'Purple' },
@@ -19,7 +19,7 @@ export const filters = [
       options: [
         { value: 'new-arrivals', label: 'New Arrivals' },
         { value: 'sale', label: 'Sale' },
-        { value: 'travel', label: 'Travel', checked: true },
+        { value: 'travel', label: 'Travel'},
         { value: 'organization', label: 'Organization' },
         { value: 'accessories', label: 'Accessories' },
       ],
@@ -33,7 +33,7 @@ export const filters = [
         { value: '12l', label: '12L' },
         { value: '18l', label: '18L' },
         { value: '20l', label: '20L' },
-        { value: '40l', label: '40L', checked: true },
+        { value: '40l', label: '40L' },
       ],
     },
   ]

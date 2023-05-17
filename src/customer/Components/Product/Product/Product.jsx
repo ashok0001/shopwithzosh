@@ -10,7 +10,7 @@ import {
 } from "@heroicons/react/20/solid";
 import { filters, sortOptions } from "./FilterData";
 import ProductCard from "../ProductCard/ProductCard";
-import { useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { productdata } from "../../../../data";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
@@ -26,8 +26,9 @@ export default function Product() {
   const dispatch = useDispatch();
   const jwt = localStorage.getItem("jwt");
   const param = useParams();
-  const {customersProduct}=useSelector(store=>store)
-  // console.log("store - ",customersProduct);
+  const { customersProduct } = useSelector((store) => store);
+  const location = useLocation();
+
   const handleSortChange = (newSortBy) => {
     navigate({
       search: `?sort=${newSortBy}`,
@@ -38,6 +39,67 @@ export default function Product() {
     const data = { categoryName: param.lavelThree, jwt };
     dispatch(findProductsByCategory(data));
   }, [param.lavelThree]);
+
+  //   const handleFilter=(id,value)=>{
+
+  // const searchParams = new URLSearchParams(location.search);
+
+  // searchParams.delete(value);
+
+  // //
+  // searchParams.append(value, id);
+  // const query = searchParams.toString();
+  //   navigate({search:`?${query}`})
+
+  //   }
+
+  // console.log("location",location,navigate)
+
+  const handleFilter = (value, sectionId) => {
+    // const searchParams = new URLSearchParams(location.search);
+
+    // const filterParam = searchParams.get('f');
+    // const filterParts = filterParam ? filterParam.split('::') : [];
+
+    // const updatedFilterParts = filterParts.filter((part) => {
+    //   const [key] = part.split(':');
+    //   return key !== sectionId;
+    // });
+
+    // if (value) {
+    //   updatedFilterParts.push(`${sectionId}:${value}`);
+    // }
+
+    // searchParams.set('f', updatedFilterParts.join('::'));
+    const searchParams = new URLSearchParams(location.search);
+
+    let filterValues = searchParams.getAll(sectionId);
+    console.log("filter values before", filterValues);
+
+    if (filterValues.length > 0 && filterValues[0].split(",").includes(value)) {
+      filterValues = filterValues[0]
+        .split(",")
+        .filter((item) => item !== value);
+      if (filterValues.length === 0) {
+        console.log("empty", sectionId);
+        searchParams.delete(sectionId);
+      }
+      console.log("includes");
+    } else {
+      // Remove all values for the current section
+      // searchParams.delete(sectionId);
+      filterValues.push(value);
+      console.log("not include", value);
+    }
+    console.log("filter values", filterValues);
+
+    if (filterValues.length > 0)
+      searchParams.set(sectionId, filterValues.join(","));
+
+    // history.push({ search: searchParams.toString() });
+    const query = searchParams.toString();
+    navigate({ search: `?${query}` });
+  };
 
   return (
     <div className="bg-white -z-20">
@@ -130,10 +192,14 @@ export default function Product() {
                                       type="checkbox"
                                       defaultChecked={option.checked}
                                       className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                                      onChange={() =>
+                                        handleFilter(option.value, section.id)
+                                      }
                                     />
                                     <label
                                       htmlFor={`filter-mobile-${section.id}-${optionIdx}`}
                                       className="ml-3 min-w-0 flex-1 text-gray-500"
+                                      // onClick={()=>handleFilter(option.value,section.id)}
                                     >
                                       {option.label}
                                     </label>
@@ -273,6 +339,9 @@ export default function Product() {
                                   type="checkbox"
                                   defaultChecked={option.checked}
                                   className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                                  onChange={() =>
+                                    handleFilter(option.value, section.id)
+                                  }
                                 />
                                 <label
                                   htmlFor={`filter-${section.id}-${optionIdx}`}

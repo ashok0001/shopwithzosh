@@ -1,10 +1,11 @@
 import React from 'react';
 import "./ProductCard.css";
-import{useNavigate} from "react-router-dom";
+import{useLocation, useNavigate} from "react-router-dom";
 
 const ProductCard = ({ product }) => {
   const { title, brand, imageUrl, price ,discountedPrice,color,discountPersent} = product;
   const navigate= useNavigate();
+  
 
   const handleNavigate=()=>{
     navigate(`/product/${product?.id}`)
@@ -23,9 +24,9 @@ const ProductCard = ({ product }) => {
         </div>
         
         <div className='flex space-x-2 items-center'>
-            <p className='font-semibold'>{price}</p>
-            <p className='opacity-50 line-through'>{discountedPrice}</p>
-            <p className='text-green-600 font-semibold'>{discountPersent}</p>
+            <p className='font-semibold'>₹{price}</p>
+            <p className='opacity-50 line-through'>₹{discountedPrice}</p>
+            <p className='text-green-600 font-semibold'>{discountPersent}% off</p>
         </div>
         
     </div>
