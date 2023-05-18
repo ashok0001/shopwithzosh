@@ -8,13 +8,24 @@ import {
   PlusIcon,
   Squares2X2Icon,
 } from "@heroicons/react/20/solid";
-import { filters, sortOptions } from "./FilterData";
+import Radio from "@mui/material/Radio";
+import RadioGroup from "@mui/material/RadioGroup";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import FormControl from "@mui/material/FormControl";
+import FormLabel from "@mui/material/FormLabel";
+import Pagination from '@mui/material/Pagination';
+
+import { filters, singleFilter, sortOptions } from "./FilterData";
 import ProductCard from "../ProductCard/ProductCard";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { productdata } from "../../../../data";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import { findProductsByCategory } from "../../../../Redux/Customers/Product/Action";
+import {
+  findProducts,
+  findProductsByCategory,
+} from "../../../../Redux/Customers/Product/Action";
+import { deepPurple } from "@mui/material/colors";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -29,31 +40,48 @@ export default function Product() {
   const { customersProduct } = useSelector((store) => store);
   const location = useLocation();
 
-  const handleSortChange = (newSortBy) => {
-    navigate({
-      search: `?sort=${newSortBy}`,
-    });
+  // const filter = decodeURIComponent(location.search);
+  const decodedQueryString = decodeURIComponent(location.search);
+  const searchParams = new URLSearchParams(decodedQueryString);
+  const colorValue = searchParams.get("color");
+  const sizeValue = searchParams.get("size");
+  const price = searchParams.get("price");
+  const disccount = searchParams.get("disccout");
+  const sortValue = searchParams.get("sort");
+  const pageNumber = searchParams.get("page");
+  console.log("location - ", colorValue, sizeValue,price,disccount);
+
+  const handleSortChange = (value) => {
+    const searchParams = new URLSearchParams(location.search);
+    searchParams.set("sort", value);
+    const query = searchParams.toString();
+    navigate({ search: `?${query}` });
+    // navigate({
+    //   search: `?sort=${newSortBy}`,
+    // });
+  };
+  const handlePaginationChange = (event, value) => {
+    const searchParams = new URLSearchParams(location.search);
+    searchParams.set("page", value);
+    const query = searchParams.toString();
+    navigate({ search: `?${query}` });
   };
 
   useEffect(() => {
-    const data = { categoryName: param.lavelThree, jwt };
-    dispatch(findProductsByCategory(data));
+    const [minPrice,maxPrice]= price===null?[0,0]: price.split("-").map(Number);
+    const data = {
+      category: param.lavelThree,
+      colors: colorValue || [],
+      sizes: sizeValue || [],
+      minPrice: minPrice || 0,
+      maxPrice: maxPrice || 10000,
+      minDiscount: disccount || 0,
+      sort: sortValue || "price_low",
+      pageNumber:pageNumber ||1,
+      pageSize: 10,
+    };
+    dispatch(findProducts(data));
   }, [param.lavelThree]);
-
-  //   const handleFilter=(id,value)=>{
-
-  // const searchParams = new URLSearchParams(location.search);
-
-  // searchParams.delete(value);
-
-  // //
-  // searchParams.append(value, id);
-  // const query = searchParams.toString();
-  //   navigate({search:`?${query}`})
-
-  //   }
-
-  // console.log("location",location,navigate)
 
   const handleFilter = (value, sectionId) => {
     // const searchParams = new URLSearchParams(location.search);
@@ -71,17 +99,16 @@ export default function Product() {
     // }
 
     // searchParams.set('f', updatedFilterParts.join('::'));
+
     const searchParams = new URLSearchParams(location.search);
 
     let filterValues = searchParams.getAll(sectionId);
-    console.log("filter values before", filterValues);
 
     if (filterValues.length > 0 && filterValues[0].split(",").includes(value)) {
       filterValues = filterValues[0]
         .split(",")
         .filter((item) => item !== value);
       if (filterValues.length === 0) {
-        console.log("empty", sectionId);
         searchParams.delete(sectionId);
       }
       console.log("includes");
@@ -89,9 +116,7 @@ export default function Product() {
       // Remove all values for the current section
       // searchParams.delete(sectionId);
       filterValues.push(value);
-      console.log("not include", value);
     }
-    console.log("filter values", filterValues);
 
     if (filterValues.length > 0)
       searchParams.set(sectionId, filterValues.join(","));
@@ -101,8 +126,17 @@ export default function Product() {
     navigate({ search: `?${query}` });
   };
 
+  const handleRadioFilterChange=(e,sectionId)=>{
+    const searchParams = new URLSearchParams(location.search);
+    searchParams.set(sectionId, e.target.value);
+    const query = searchParams.toString();
+    navigate({ search: `?${query}` });
+  }
+
+ 
+
   return (
-    <div className="bg-white -z-20">
+    <div className="bg-white -z-20 ">
       <div>
         {/* Mobile filter dialog */}
         <Transition.Root show={mobileFiltersOpen} as={Fragment}>
@@ -218,7 +252,7 @@ export default function Product() {
           </Dialog>
         </Transition.Root>
 
-        <main className="mx-auto px-4 sm:px-6 lg:px-14">
+        <main className="mx-auto px-4 lg:px-14 ">
           <div className="flex items-baseline justify-between border-b border-gray-200 pb-6">
             <h1 className="text-4xl font-bold tracking-tight text-gray-900">
               Product
@@ -357,18 +391,79 @@ export default function Product() {
                     )}
                   </Disclosure>
                 ))}
+                {singleFilter.map((section) => (
+                  <Disclosure
+                    defaultOpen={true}
+                    as="div"
+                    key={section.id}
+                    className="border-b border-gray-200 py-6"
+                  >
+                    {({ open }) => (
+                      <>
+                        <h3 className="-my-3 flow-root">
+                          <Disclosure.Button className="flex w-full items-center justify-between bg-white py-3 text-sm text-gray-400 hover:text-gray-500">
+                            <span className="font-medium text-gray-900">
+                              {section.name}
+                            </span>
+                            <span className="ml-6 flex items-center">
+                              {open ? (
+                                <MinusIcon
+                                  className="h-5 w-5"
+                                  aria-hidden="true"
+                                />
+                              ) : (
+                                <PlusIcon
+                                  className="h-5 w-5"
+                                  aria-hidden="true"
+                                />
+                              )}
+                            </span>
+                          </Disclosure.Button>
+                        </h3>
+                        <Disclosure.Panel className="pt-6">
+                          <FormControl>
+                           
+                            <RadioGroup
+                              aria-labelledby="demo-radio-buttons-group-label"
+                              defaultValue="female"
+                              name="radio-buttons-group"
+                            >
+                              {section.options.map((option, optionIdx) => (
+                                <FormControlLabel
+                                  value={option.value}
+                                  control={<Radio />}
+                                  label={option.label}
+                                  onChange={(e)=>handleRadioFilterChange(e,section.id)}
+                                />
+                              ))}
+                               
+                            </RadioGroup>
+                          </FormControl>
+                        </Disclosure.Panel>
+                      </>
+                    )}
+                  </Disclosure>
+                ))}
               </form>
 
               {/* Product grid */}
               <div className="lg:col-span-4 w-full flex flex-wrap justify-center bg-white border py-5 rounded-md ">
-                {customersProduct?.products?.map((item) => (
+                {customersProduct?.products?.content?.map((item) => (
                   <ProductCard product={item} />
                 ))}
               </div>
             </div>
           </section>
         </main>
+        <div className="w-full px-[3.6rem]">
+          <div className="mx-auto px-4 py-5 flex justify-center shadow-lg border rounded-md">
+          <Pagination count={10} color="primary" className="" onChange={handlePaginationChange}/>
+        </div>
+        </div>
+          
       </div>
+
+      
     </div>
   );
 }
