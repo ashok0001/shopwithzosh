@@ -3,7 +3,7 @@ export const mensPantsPage1=[
         "imageUrl": "https://rukminim1.flixcart.com/image/612/612/kb1470w0/jean/x/r/a/30-11274626-roadster-original-imafsgsthk6gdpjg.jpeg?q=70",
         "brand": "Roadster",
         "title": "Men Regular Mid Rise Blue Jeans",
-        "color": "",
+        "color": "blue",
         "discountedPrice": 591,
         "price": 1159,
         "size": [
