@@ -14,10 +14,10 @@ import {Button} from "@mui/material";
 import { customTheme, customerTheme } from "../Admin/them/customeThem";
 import Order from "../customer/Components/orders/Order";
 import OrderDetails from "../customer/Components/orders/OrderDetails";
-import RateProduct from "../customer/Components/orders/RateProduct";
 import Checkout from "../customer/Components/Checkout/Checkout";
 import Footer from "../customer/Components/footer/Footer";
 import PaymentSuccess from "../customer/Components/paymentSuccess/PaymentSuccess";
+import RateProduct from "../customer/Components/ReviewProduct/RateProduct";
 
 const CustomerRoutes = () => {
     const location = useLocation();

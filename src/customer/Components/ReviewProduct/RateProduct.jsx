@@ -7,13 +7,21 @@ import {
   Typography,
   useMediaQuery,
 } from "@mui/material";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import FiberManualRecordIcon from "@mui/icons-material/FiberManualRecord";
+import { useDispatch, useSelector } from "react-redux";
+import { createReview } from "../../../Redux/Customers/Review/Action";
+import { useParams } from "react-router-dom";
+import { findProductById } from "../../../Redux/Customers/Product/Action";
+import CustomerRoutes from "../../../Routers/CustomerRoutes";
 
 const RateProduct = () => {
   const [formData, setFormData] = useState({ title: "", description: "" });
   const [rating, setRating] = useState();
   const isLargeScreen = useMediaQuery("(min-width:1200px)");
+  const dispatch = useDispatch();
+  const { customersProduct } = useSelector((store) => store);
+  const { productId } = useParams();
 
   const handleRateProduct = (e, value) => {
     console.log("rating ----- ", value);
@@ -32,25 +40,40 @@ const RateProduct = () => {
 
     console.log(formData);
     // You can customize this handler to handle the form data as needed
+
+    dispatch(createReview({review:formData.title,productId}))
+
   };
+  useEffect(() => {
+    dispatch(findProductById({ productId }));
+  }, []);
   return (
     <div className="px-5 lg:px-20">
-        <h1 className="text-xl p-5 shadow-lg mb-8 font-bold">Rate & Review Product</h1>
-      <Grid sx={{justifyContent:"space-between"}} container >
-        <Grid className="flex  lg:items-center shadow-lg border rounded-md p-5" item xs={12} lg={5.8}>
+      <h1 className="text-xl p-5 shadow-lg mb-8 font-bold">
+        Rate & Review Product
+      </h1>
+      <Grid sx={{ justifyContent: "space-between" }} container>
+        <Grid
+          className="flex  lg:items-center shadow-lg border rounded-md p-5"
+          item
+          xs={12}
+          lg={5.8}
+        >
           <div>
             <img
               className="w-[5rem] lg:w-[15rem]"
-              src="https://rukminim1.flixcart.com/image/612/612/xif0q/lehenga-choli/d/i/u/free-half-sleeve-big-tea-blue-trivety-original-imagnyd8rmf9cjqw.jpeg?q=70"
+              src={customersProduct.product?.imageUrl}
               alt=""
             />
           </div>
           <div className="ml-3 lg:ml-5 space-y-2 lg:space-y-4">
-            <p className="lg:text-lg">Self Design Semi Stitched Lehenga Choli</p>
-            <p className="opacity-50 font-semibold">rayie collection</p>
-            <p>₹999</p>
+            <p className="lg:text-lg">{customersProduct.product?.title}</p>
+            <p className="opacity-50 font-semibold">
+              {customersProduct.product?.brand}
+            </p>
+            <p>₹{customersProduct.product?.price}</p>
             <p>Size: Free</p>
-            <p>Color: Green</p>
+           {customersProduct.product?.color && <p>Color: {customersProduct.product?.color}</p>}
             <div className="flex items-center space-x-3">
               <Rating name="read-only" value={4.6} precision={0.5} readOnly />
 
@@ -72,11 +95,11 @@ const RateProduct = () => {
           </div>
         </Grid>
         <Grid item xs={12} lg={6}>
-       
           <div className={`${!isLargeScreen ? "py-10" : ""} space-y-5`}>
-           
             <div className="shadow-md border rounded-md p-5">
-              <Typography className="font-semibold" component="legend">Rate This Product</Typography>
+              <Typography className="font-semibold" component="legend">
+                Rate This Product
+              </Typography>
               <Rating
                 name="simple-controlled"
                 value={rating}
@@ -85,7 +108,10 @@ const RateProduct = () => {
                 }}
               />
             </div>
-            <form onSubmit={handleSubmit} className="space-y-5 p-5 shadow-md border rounded-md">
+            <form
+              onSubmit={handleSubmit}
+              className="space-y-5 p-5 shadow-md border rounded-md"
+            >
               <TextField
                 label="Title"
                 variant="outlined"
@@ -107,7 +133,7 @@ const RateProduct = () => {
                 name="description"
               />
               <Button type="submit" variant="contained" color="primary">
-                Submit Rating
+                Submit Review
               </Button>
             </form>
           </div>
