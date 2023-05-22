@@ -8,7 +8,7 @@ import {
     CREATE_RATING_FAILURE,
     GET_ALL_RATINGS_SUCCESS,
     GET_ALL_RATINGS_FAILURE
-  } from './actions';
+  } from './ActionTyp';
   
   const initialState = {
     reviews: [],
@@ -16,7 +16,7 @@ import {
     error: ''
   };
   
-  const reducer = (state = initialState, action) => {
+  const ReviewReducer = (state = initialState, action) => {
     switch (action.type) {
       case CREATE_REVIEW_SUCCESS:
         return {
@@ -67,5 +67,5 @@ import {
     }
   };
   
-  export default reducer;
+  export default ReviewReducer;
   
