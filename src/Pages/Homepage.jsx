@@ -11,6 +11,7 @@ import { gounsPage1 } from "../Data/Gouns/gouns";
 import { kurtaPage1 } from "../Data/Kurta/kurta";
 import { mensShoesPage1 } from "../Data/shoes";
 import AuthModal from "../customer/Components/Auth/AuthModal";
+import { mens_kurta } from "../Data/men_kurta";
 
 const Homepage = () => {
 
@@ -19,6 +20,7 @@ const Homepage = () => {
       <HomeCarousel images={homeCarouselData} />
 
       <div className="space-y-10 py-20">
+      <HomeProductSection data={mens_kurta} section={"Men's Kurta"} />
         <HomeProductSection data={mensShoesPage1} section={"Men's Shoes"} />
         <HomeProductSection data={lengha_page1} section={"Lengha Choli"} />
         <HomeProductSection data={sareePage1} section={"Saree"} />

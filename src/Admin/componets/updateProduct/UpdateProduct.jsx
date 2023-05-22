@@ -11,10 +11,14 @@ import {
 } from "@mui/material";
 
 import { Fragment } from "react";
-import "./CreateProductForm.css";
-import { useDispatch } from "react-redux";
-import { createProduct } from "../../../Redux/Customers/Product/Action";
-
+// import "./CreateProductForm.css";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  findProductById,
+  updateProduct,
+} from "../../../Redux/Customers/Product/Action";
+import { useEffect } from "react";
+import { useParams } from "react-router-dom";
 
 const initialSizes = [
   { name: "S", quantity: 0 },
@@ -22,8 +26,7 @@ const initialSizes = [
   { name: "L", quantity: 0 },
 ];
 
-const CreateProductForm = () => {
-  
+const UpdateProductForm = () => {
   const [productData, setProductData] = useState({
     imageUrl: "",
     brand: "",
@@ -39,8 +42,10 @@ const CreateProductForm = () => {
     thirdLavelCategory: "",
     description: "",
   });
-const dispatch=useDispatch();
-const jwt=localStorage.getItem("jwt")
+  const dispatch = useDispatch();
+  const jwt = localStorage.getItem("jwt");
+  const { productId } = useParams();
+  const { customersProduct } = useSelector((store) => store);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -52,7 +57,7 @@ const jwt=localStorage.getItem("jwt")
 
   const handleSizeChange = (e, index) => {
     let { name, value } = e.target;
-    name==="size_quantity"?name="quantity":name=e.target.name;
+    name === "size_quantity" ? (name = "quantity") : (name = e.target.name);
 
     const sizes = [...productData.size];
     sizes[index][name] = value;
@@ -62,39 +67,25 @@ const jwt=localStorage.getItem("jwt")
     }));
   };
 
-  const handleAddSize = () => {
-    const sizes = [...productData.size];
-    sizes.push({ name: "", quantity: "" });
-    setProductData((prevState) => ({
-      ...prevState,
-      size: sizes,
-    }));
-  };
-
-  // const handleRemoveSize = (index) => {
-  //   const sizes = [...productData.size];
-  //   sizes.splice(index, 1);
-  //   setProductData((prevState) => ({
-  //     ...prevState,
-  //     size: sizes,
-  //   }));
-  // };
-
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(createProduct({data:productData,jwt}))
+    dispatch(updateProduct());
     console.log(productData);
   };
 
-  // const handleAddProducts=(data)=>{
-  //   for(let item of data){
-  //     const productsData={
-  //       data:item,
-  //       jwt,
-  //     }
-  //     dispatch(createProduct(productsData))
-  //   }
-  // }
+  useEffect(() => {
+    dispatch(findProductById({productId}));
+  }, [productId]);
+
+  useEffect(()=>{
+    if(customersProduct.product){
+        for(let key in productData){
+    setProductData((prev)=>({...prev,[key]:customersProduct.product[key]}))
+    console.log(customersProduct.product[key],"--------",key)
+}
+    }
+
+  },[customersProduct.product])
 
   return (
     <Fragment className="createProductContainer ">
@@ -128,7 +119,7 @@ const jwt=localStorage.getItem("jwt")
               onChange={handleChange}
             />
           </Grid>
-        
+
           <Grid item xs={12} sm={6}>
             <TextField
               fullWidth
@@ -177,7 +168,7 @@ const jwt=localStorage.getItem("jwt")
               type="number"
             />
           </Grid>
-          
+
           <Grid item xs={12} sm={4}>
             <TextField
               fullWidth
@@ -248,8 +239,8 @@ const jwt=localStorage.getItem("jwt")
               value={productData.description}
             />
           </Grid>
-          {productData.size.map((size, index) => (
-            <Grid container item spacing={3} >
+          {/* {productData.size.map((size, index) => (
+            <Grid container item spacing={3}>
               <Grid item xs={12} sm={6}>
                 <TextField
                   label="Size Name"
@@ -269,10 +260,10 @@ const jwt=localStorage.getItem("jwt")
                   required
                   fullWidth
                 />
-              </Grid> </Grid>
-            
-          ))}
-          <Grid item xs={12} >
+              </Grid>{" "}
+            </Grid>
+          ))} */}
+          <Grid item xs={12}>
             <Button
               variant="contained"
               sx={{ p: 1.8 }}
@@ -280,7 +271,7 @@ const jwt=localStorage.getItem("jwt")
               size="large"
               type="submit"
             >
-              Add New Product
+              Update Product
             </Button>
             {/* <Button
               variant="contained"
@@ -298,4 +289,4 @@ const jwt=localStorage.getItem("jwt")
   );
 };
 
-export default CreateProductForm;
+export default UpdateProductForm;

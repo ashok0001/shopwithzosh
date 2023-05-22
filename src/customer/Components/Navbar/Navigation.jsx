@@ -14,6 +14,7 @@ import AuthModal from "../Auth/AuthModal";
 import { useDispatch, useSelector } from "react-redux";
 import { deepPurple } from "@mui/material/colors";
 import { getUser, logout } from "../../../Redux/Auth/Action";
+import { getCart } from "../../../Redux/Customers/Cart/Action";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -23,7 +24,7 @@ export default function Navigation() {
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { auth } = useSelector((store) => store);
+  const { auth,cart } = useSelector((store) => store);
   const [openAuthModal, setOpenAuthModal] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
   const openUserMenu = Boolean(anchorEl);
@@ -32,6 +33,7 @@ export default function Navigation() {
   useEffect(() => {
     if (jwt) {
       dispatch(getUser(jwt));
+      dispatch(getCart(jwt));
     }
   }, [jwt]);
   const handleUserClick = (event) => {
@@ -479,7 +481,7 @@ export default function Navigation() {
                       aria-hidden="true"
                     />
                     <span className="ml-2 text-sm font-medium text-gray-700 group-hover:text-gray-800">
-                      0
+                      {cart.cart?.totalItem}
                     </span>
                     <span className="sr-only">items in cart, view bag</span>
                   </Button>

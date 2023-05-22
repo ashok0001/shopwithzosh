@@ -49,7 +49,9 @@ export default function Product() {
   const disccount = searchParams.get("disccout");
   const sortValue = searchParams.get("sort");
   const pageNumber = searchParams.get("page");
-  console.log("location - ", colorValue, sizeValue,price,disccount);
+  const stock=searchParams.get("stock");
+
+  // console.log("location - ", colorValue, sizeValue,price,disccount);
 
   const handleSortChange = (value) => {
     const searchParams = new URLSearchParams(location.search);
@@ -79,6 +81,7 @@ export default function Product() {
       sort: sortValue || "price_low",
       pageNumber:pageNumber || 0,
       pageSize: 10,
+      stock:stock
     };
     dispatch(findProducts(data));
   }, [param.lavelThree]);
