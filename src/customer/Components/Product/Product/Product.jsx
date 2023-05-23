@@ -13,7 +13,7 @@ import RadioGroup from "@mui/material/RadioGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import FormControl from "@mui/material/FormControl";
 import FormLabel from "@mui/material/FormLabel";
-import Pagination from '@mui/material/Pagination';
+import Pagination from "@mui/material/Pagination";
 
 import { filters, singleFilter, sortOptions } from "./FilterData";
 import ProductCard from "../ProductCard/ProductCard";
@@ -26,6 +26,7 @@ import {
   findProductsByCategory,
 } from "../../../../Redux/Customers/Product/Action";
 import { deepPurple } from "@mui/material/colors";
+import { Backdrop, CircularProgress } from "@mui/material";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -39,6 +40,11 @@ export default function Product() {
   const param = useParams();
   const { customersProduct } = useSelector((store) => store);
   const location = useLocation();
+  const [isLoaderOpen, setIsLoaderOpen] = useState(false);
+
+  const handleLoderClose = () => {
+    setIsLoaderOpen(false);
+  };
 
   // const filter = decodeURIComponent(location.search);
   const decodedQueryString = decodeURIComponent(location.search);
@@ -49,7 +55,7 @@ export default function Product() {
   const disccount = searchParams.get("disccout");
   const sortValue = searchParams.get("sort");
   const pageNumber = searchParams.get("page") || 1;
-  const stock=searchParams.get("stock");
+  const stock = searchParams.get("stock");
 
   // console.log("location - ", colorValue, sizeValue,price,disccount);
 
@@ -58,7 +64,6 @@ export default function Product() {
     searchParams.set("sort", value);
     const query = searchParams.toString();
     navigate({ search: `?${query}` });
-    
   };
   const handlePaginationChange = (event, value) => {
     const searchParams = new URLSearchParams(location.search);
@@ -68,7 +73,8 @@ export default function Product() {
   };
 
   useEffect(() => {
-    const [minPrice,maxPrice]= price===null?[0,0]: price.split("-").map(Number);
+    const [minPrice, maxPrice] =
+      price === null ? [0, 0] : price.split("-").map(Number);
     const data = {
       category: param.lavelThree,
       colors: colorValue || [],
@@ -77,12 +83,21 @@ export default function Product() {
       maxPrice: maxPrice || 10000,
       minDiscount: disccount || 0,
       sort: sortValue || "price_low",
-      pageNumber:pageNumber-1,
+      pageNumber: pageNumber - 1,
       pageSize: 10,
-      stock:stock
+      stock: stock,
     };
     dispatch(findProducts(data));
-  }, [param.lavelThree,colorValue,sizeValue,price,disccount,sortValue,pageNumber,stock]);
+  }, [
+    param.lavelThree,
+    colorValue,
+    sizeValue,
+    price,
+    disccount,
+    sortValue,
+    pageNumber,
+    stock,
+  ]);
 
   const handleFilter = (value, sectionId) => {
     // const searchParams = new URLSearchParams(location.search);
@@ -127,14 +142,21 @@ export default function Product() {
     navigate({ search: `?${query}` });
   };
 
-  const handleRadioFilterChange=(e,sectionId)=>{
+  const handleRadioFilterChange = (e, sectionId) => {
     const searchParams = new URLSearchParams(location.search);
     searchParams.set(sectionId, e.target.value);
     const query = searchParams.toString();
     navigate({ search: `?${query}` });
-  }
+  };
 
- 
+  useEffect(() => {
+    if (customersProduct.loading) {
+      setIsLoaderOpen(true);
+    }
+    else{
+      setIsLoaderOpen(false)
+    }
+  }, [customersProduct.loading]);
 
   return (
     <div className="bg-white -z-20 ">
@@ -423,7 +445,6 @@ export default function Product() {
                         </h3>
                         <Disclosure.Panel className="pt-6">
                           <FormControl>
-                           
                             <RadioGroup
                               aria-labelledby="demo-radio-buttons-group-label"
                               defaultValue="female"
@@ -434,10 +455,11 @@ export default function Product() {
                                   value={option.value}
                                   control={<Radio />}
                                   label={option.label}
-                                  onChange={(e)=>handleRadioFilterChange(e,section.id)}
+                                  onChange={(e) =>
+                                    handleRadioFilterChange(e, section.id)
+                                  }
                                 />
                               ))}
-                               
                             </RadioGroup>
                           </FormControl>
                         </Disclosure.Panel>
@@ -450,24 +472,38 @@ export default function Product() {
               {/* Product grid */}
               <div className="lg:col-span-4 w-full ">
                 <div className="flex flex-wrap justify-center bg-white border py-5 rounded-md ">
-                {customersProduct?.products?.content?.map((item) => (
-                  <ProductCard product={item} />
-                ))}
+                  {customersProduct?.products?.content?.map((item) => (
+                    <ProductCard product={item} />
+                  ))}
+                </div>
               </div>
-              </div>
-              
             </div>
           </section>
         </main>
-        <div className="w-full px-[3.6rem]">
-          <div className="mx-auto px-4 py-5 flex justify-center shadow-lg border rounded-md">
-          <Pagination  count={customersProduct.products?.totalPages} color="primary" className="" onChange={handlePaginationChange}/>
-        </div>
-        </div>
-          
-      </div>
 
-      
+        {/* pagination section */}
+        <section className="w-full px-[3.6rem]">
+          <div className="mx-auto px-4 py-5 flex justify-center shadow-lg border rounded-md">
+            <Pagination
+              count={customersProduct.products?.totalPages}
+              color="primary"
+              className=""
+              onChange={handlePaginationChange}
+            />
+          </div>
+        </section>
+
+        {/* {backdrop} */}
+        <section>
+          <Backdrop
+            sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
+            open={isLoaderOpen}
+            onClick={handleLoderClose}
+          >
+            <CircularProgress color="inherit" />
+          </Backdrop>
+        </section>
+      </div>
     </div>
   );
 }
