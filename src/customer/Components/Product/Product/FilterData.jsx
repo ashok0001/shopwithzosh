@@ -20,6 +20,7 @@ export const filters = [
       { value: "brown", label: "Brown" },
       { value: "green", label: "Green" },
       { value: "purple", label: "Purple" },
+      {value:"yellow",label:"Yellow"}
     ],
   },
 

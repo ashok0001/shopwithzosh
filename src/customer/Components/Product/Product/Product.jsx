@@ -48,7 +48,7 @@ export default function Product() {
   const price = searchParams.get("price");
   const disccount = searchParams.get("disccout");
   const sortValue = searchParams.get("sort");
-  const pageNumber = searchParams.get("page");
+  const pageNumber = searchParams.get("page") || 1;
   const stock=searchParams.get("stock");
 
   // console.log("location - ", colorValue, sizeValue,price,disccount);
@@ -77,12 +77,12 @@ export default function Product() {
       maxPrice: maxPrice || 10000,
       minDiscount: disccount || 0,
       sort: sortValue || "price_low",
-      pageNumber:pageNumber || 0,
+      pageNumber:pageNumber-1,
       pageSize: 10,
       stock:stock
     };
     dispatch(findProducts(data));
-  }, [param.lavelThree]);
+  }, [param.lavelThree,colorValue,sizeValue,price,disccount,sortValue,pageNumber,stock]);
 
   const handleFilter = (value, sectionId) => {
     // const searchParams = new URLSearchParams(location.search);
@@ -448,17 +448,20 @@ export default function Product() {
               </form>
 
               {/* Product grid */}
-              <div className="lg:col-span-4 w-full flex flex-wrap justify-center bg-white border py-5 rounded-md ">
+              <div className="lg:col-span-4 w-full ">
+                <div className="flex flex-wrap justify-center bg-white border py-5 rounded-md ">
                 {customersProduct?.products?.content?.map((item) => (
                   <ProductCard product={item} />
                 ))}
               </div>
+              </div>
+              
             </div>
           </section>
         </main>
         <div className="w-full px-[3.6rem]">
           <div className="mx-auto px-4 py-5 flex justify-center shadow-lg border rounded-md">
-          <Pagination count={10} color="primary" className="" onChange={handlePaginationChange}/>
+          <Pagination  count={customersProduct.products?.totalPages} color="primary" className="" onChange={handlePaginationChange}/>
         </div>
         </div>
           
