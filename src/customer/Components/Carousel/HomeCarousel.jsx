@@ -2,19 +2,18 @@ import React from 'react';
 import AliceCarousel from 'react-alice-carousel';
 import 'react-alice-carousel/lib/alice-carousel.css';
 import { homeCarouselData } from './HomeCaroselData';
+import { useNavigate } from 'react-router-dom';
 
 const handleDragStart = (e) => e.preventDefault();
 
-const items = [
-  
-  
-  <img src="path-to-img" width={"100vw"} alt='' onDragStart={handleDragStart} role="presentation" />,
-  <img src="path-to-img" alt='' onDragStart={handleDragStart} role="presentation" />,
-];
 
-const item=homeCarouselData.map((item)=> <img src={item} alt='' onDragStart={handleDragStart} role="presentation" />,)
+
+
+
 
 const HomeCarousel = () => {
+  const navigate=useNavigate()
+  const item=homeCarouselData.map((item)=> <img className='cursor-pointer' onClick={()=>navigate(item.path)} src={item.image} alt='' onDragStart={handleDragStart} role="presentation" />,)
   return (
     <AliceCarousel 
      mouseTracking 

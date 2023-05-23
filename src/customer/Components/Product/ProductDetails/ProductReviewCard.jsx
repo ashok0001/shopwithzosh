@@ -2,7 +2,7 @@ import React from "react";
 import { Avatar } from "@mui/material";
 import { Rating, Box, Typography, Grid } from "@mui/material";
 
-const ProductReviewCard = () => {
+const ProductReviewCard = ({item}) => {
   const [value, setValue] = React.useState(4.5);
   return (
     <div className="">
@@ -12,17 +12,17 @@ const ProductReviewCard = () => {
             <Avatar
               className="text-white"
               sx={{ width: 56, height: 56, bgcolor: "#9155FD" }}
-              alt="Remy Sharp"
+              alt={item.user.firstName}
               src=""
             >
-              R
+              {item.user.firstName[0].toUpperCase()}
             </Avatar>
           </Box>
         </Grid>
         <Grid item xs={9}>
           <div className="space-y-2">
             <div className="">
-              <p>Jon Doe</p>
+              <p className="font-semibold text-lg">{item.user.firstName}</p>
               <p className="opacity-70">April 5, 2023</p>
             </div>
             <div>
@@ -40,10 +40,7 @@ const ProductReviewCard = () => {
              
             </div>
             <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo at
-              adipisci autem facilis possimus repellendus et quos cumque, minima
-              magnam, eaque consequuntur dolor. Veniam eaque eveniet dignissimos
-              in autem commodi?
+              {item.review}
             </p>
           </div>
         </Grid>

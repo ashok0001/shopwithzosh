@@ -12,6 +12,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { findProductById } from "../../../../Redux/Customers/Product/Action";
 import { addItemToCart } from "../../../../Redux/Customers/Cart/Action";
+import { getAllReviews } from "../../../../Redux/Customers/Review/Action";
 
 const product = {
   name: "Basic Tee 6-Pack",
@@ -45,11 +46,9 @@ const product = {
     { name: "Black", class: "bg-gray-900", selectedClass: "ring-gray-900" },
   ],
   sizes: [
-   
     { name: "S", inStock: true },
     { name: "M", inStock: true },
     { name: "L", inStock: true },
-    
   ],
   description:
     'The Basic Tee 6-Pack allows you to fully express your vibrant personality with three grayscale options. Feeling adventurous? Put on a heather gray tee. Want to be a trendsetter? Try our exclusive colorway: "Black". Need to add an extra pop of color to your outfit? Our white tee has you covered.',
@@ -69,31 +68,30 @@ function classNames(...classes) {
 }
 
 export default function ProductDetails() {
-  
   const [selectedSize, setSelectedSize] = useState(product.sizes[2]);
   const [activeImage, setActiveImage] = useState(null);
   const navigate = useNavigate();
-  const dispatch=useDispatch();
-  const {customersProduct}=useSelector(store=>store);
-  const {productId}=useParams();
-  const jwt=localStorage.getItem("jwt");
-  console.log("param",productId,customersProduct.product)
+  const dispatch = useDispatch();
+  const { customersProduct } = useSelector((store) => store);
+  const { productId } = useParams();
+  const jwt = localStorage.getItem("jwt");
+  // console.log("param",productId,customersProduct.product)
 
   const handleSetActiveImage = (image) => {
     setActiveImage(image);
   };
 
   const handleSubmit = () => {
-    const data={productId,size:selectedSize.name}
-    dispatch(addItemToCart({data,jwt}))
+    const data = { productId, size: selectedSize.name };
+    dispatch(addItemToCart({ data, jwt }));
     navigate("/cart");
   };
 
-  useEffect(()=>{
-    const data={productId:Number(productId),jwt}
-dispatch(findProductById(data))
-
-  },[productId])
+  useEffect(() => {
+    const data = { productId: Number(productId), jwt };
+    dispatch(findProductById(data));
+    dispatch(getAllReviews(productId));
+  }, [productId]);
 
   return (
     <div className="bg-white lg:px-20">
@@ -171,7 +169,7 @@ dispatch(findProductById(data))
                 {customersProduct.product?.brand}
               </h1>
               <h1 className="text-lg lg:text-xl tracking-tight text-gray-900 opacity-60 pt-1">
-              {customersProduct.product?.title}
+                {customersProduct.product?.title}
               </h1>
             </div>
 
@@ -179,28 +177,34 @@ dispatch(findProductById(data))
             <div className="mt-4 lg:row-span-3 lg:mt-0">
               <h2 className="sr-only">Product information</h2>
               <div className="flex space-x-5 items-center text-lg lg:text-xl tracking-tight text-gray-900 mt-6">
-                <p className="font-semibold">₹{customersProduct.product?.discountedPrice}</p>
-                <p className="opacity-50 line-through">₹{customersProduct.product?.price}</p>
-                <p className="text-green-600 font-semibold">{customersProduct.product?.discountPersent}% Off</p>
+                <p className="font-semibold">
+                  ₹{customersProduct.product?.discountedPrice}
+                </p>
+                <p className="opacity-50 line-through">
+                  ₹{customersProduct.product?.price}
+                </p>
+                <p className="text-green-600 font-semibold">
+                  {customersProduct.product?.discountPersent}% Off
+                </p>
               </div>
 
               {/* Reviews */}
               <div className="mt-6">
                 <h3 className="sr-only">Reviews</h3>
-                
-                  <div className="flex items-center space-x-3">
-                    <Rating
-                      name="read-only"
-                      value={4.6}
-                      precision={0.5}
-                      readOnly
-                    />
 
-                    <p className="opacity-60 text-sm">42807 Ratings</p>
-                    <p className="ml-3 text-sm font-medium text-indigo-600 hover:text-indigo-500">
-                      {reviews.totalCount} reviews
-                    </p>
-                  </div>
+                <div className="flex items-center space-x-3">
+                  <Rating
+                    name="read-only"
+                    value={4.6}
+                    precision={0.5}
+                    readOnly
+                  />
+
+                  <p className="opacity-60 text-sm">42807 Ratings</p>
+                  <p className="ml-3 text-sm font-medium text-indigo-600 hover:text-indigo-500">
+                    {reviews.totalCount} reviews
+                  </p>
+                </div>
               </div>
 
               <form className="mt-10" onSubmit={handleSubmit}>
@@ -280,9 +284,9 @@ dispatch(findProductById(data))
                 </div>
 
                 <Button
-                variant="contained"
+                  variant="contained"
                   type="submit"
-                  sx={{padding:".8rem 2rem", marginTop:"2rem"}}
+                  sx={{ padding: ".8rem 2rem", marginTop: "2rem" }}
                 >
                   Add To Cart
                 </Button>
@@ -296,7 +300,7 @@ dispatch(findProductById(data))
 
                 <div className="space-y-6">
                   <p className="text-base text-gray-900">
-                  {customersProduct.product?.description}
+                    {customersProduct.product?.description}
                   </p>
                 </div>
               </div>
@@ -338,8 +342,8 @@ dispatch(findProductById(data))
             <Grid container spacing={7}>
               <Grid item xs={7}>
                 <div className="space-y-5">
-                  {[1, 1, 1, 1].map((item, i) => (
-                    <ProductReviewCard item={i} />
+                  {customersProduct.product?.reviews.map((item, i) => (
+                    <ProductReviewCard item={item} />
                   ))}
                 </div>
               </Grid>

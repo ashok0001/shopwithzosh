@@ -11,7 +11,7 @@ import React, { useEffect, useState } from "react";
 import FiberManualRecordIcon from "@mui/icons-material/FiberManualRecord";
 import { useDispatch, useSelector } from "react-redux";
 import { createReview } from "../../../Redux/Customers/Review/Action";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { findProductById } from "../../../Redux/Customers/Product/Action";
 import CustomerRoutes from "../../../Routers/CustomerRoutes";
 
@@ -22,6 +22,7 @@ const RateProduct = () => {
   const dispatch = useDispatch();
   const { customersProduct } = useSelector((store) => store);
   const { productId } = useParams();
+  const navigate=useNavigate();
 
   const handleRateProduct = (e, value) => {
     console.log("rating ----- ", value);
@@ -42,6 +43,8 @@ const RateProduct = () => {
     // You can customize this handler to handle the form data as needed
 
     dispatch(createReview({review:formData.title,productId}))
+    setFormData({title:"",description:""})
+    navigate(`/product/${productId}`)
 
   };
   useEffect(() => {

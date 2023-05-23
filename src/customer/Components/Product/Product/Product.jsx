@@ -58,9 +58,7 @@ export default function Product() {
     searchParams.set("sort", value);
     const query = searchParams.toString();
     navigate({ search: `?${query}` });
-    // navigate({
-    //   search: `?sort=${newSortBy}`,
-    // });
+    
   };
   const handlePaginationChange = (event, value) => {
     const searchParams = new URLSearchParams(location.search);
