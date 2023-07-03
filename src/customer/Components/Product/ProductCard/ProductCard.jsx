@@ -18,8 +18,9 @@ const ProductCard = ({ product }) => {
     </div>
     <div className='textPart bg-white p-3 '>
         <div>
-            <p className='font-bold opacity-60'>{title}</p>
-        <p  className=''>{brand}</p>
+        <p  className='font-bold opacity-60'>{brand}</p>
+            <p className=''>{title}</p>
+        
         <p className='font-semibold opacity-50'>{color}</p>
         </div>
         
