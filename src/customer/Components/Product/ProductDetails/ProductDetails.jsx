@@ -1,18 +1,15 @@
 import { useState } from "react";
-import { StarIcon } from "@heroicons/react/20/solid";
 import { RadioGroup } from "@headlessui/react";
 import { useNavigate, useParams } from "react-router-dom";
 import ProductReviewCard from "./ProductReviewCard";
 import { Box, Button, Grid, LinearProgress, Rating } from "@mui/material";
-import { lengha_page1 } from "../../../../Data/LenghaCholi";
-import HomeProductSection from "../../Home/HomeProductSection";
 import HomeProductCard from "../../Home/HomeProductCard";
-import { Margin } from "mdi-material-ui";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { findProductById } from "../../../../Redux/Customers/Product/Action";
 import { addItemToCart } from "../../../../Redux/Customers/Cart/Action";
 import { getAllReviews } from "../../../../Redux/Customers/Review/Action";
+import { lengha_page1 } from "../../../../Data/Women/LenghaCholi";
 
 const product = {
   name: "Basic Tee 6-Pack",
@@ -68,7 +65,7 @@ function classNames(...classes) {
 }
 
 export default function ProductDetails() {
-  const [selectedSize, setSelectedSize] = useState(product.sizes[2]);
+  const [selectedSize, setSelectedSize] = useState();
   const [activeImage, setActiveImage] = useState(null);
   const navigate = useNavigate();
   const dispatch = useDispatch();

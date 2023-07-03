@@ -1,17 +1,14 @@
 import React from "react";
 import HomeCarousel from "../customer/Components/Carousel/HomeCarousel";
 import { homeCarouselData } from "../customer/Components/Carousel/HomeCaroselData";
-import CategoriesToBag from "../customer/Components/Home/HomeProductCard";
 import HomeProductSection from "../customer/Components/Home/HomeProductSection";
-import { lengha_page1 } from "../Data/LenghaCholi";
 import { sareePage1 } from "../Data/Saree/page1";
 import { dressPage1 } from "../Data/dress/page1";
-import { men_page1, mensPantsPage1 } from "../Data/pants/men_page1";
 import { gounsPage1 } from "../Data/Gouns/gouns";
 import { kurtaPage1 } from "../Data/Kurta/kurta";
 import { mensShoesPage1 } from "../Data/shoes";
-import AuthModal from "../customer/Components/Auth/AuthModal";
-import { mens_kurta } from "../Data/men_kurta";
+import { mens_kurta } from "../Data/Men/men_kurta";
+import { lengha_page1 } from "../Data/Women/LenghaCholi";
 
 const Homepage = () => {
 
@@ -27,7 +24,7 @@ const Homepage = () => {
         <HomeProductSection data={dressPage1} section={"Dress"} />
         <HomeProductSection data={gounsPage1} section={"Women's Gouns"} />
         <HomeProductSection data={kurtaPage1} section={"Women's Kurtas"} />
-        <HomeProductSection data={mensPantsPage1} section={"Men's Pants"} />
+        {/* <HomeProductSection data={mensPantsPage1} section={"Men's Pants"} /> */}
       </div>
 
       
