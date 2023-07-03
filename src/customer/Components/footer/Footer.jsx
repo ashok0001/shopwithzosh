@@ -2,8 +2,8 @@ import { Grid, Link, Typography } from '@mui/material';
 
 const Footer = () => {
   return (
-    <Grid className='bg-black text-white mt-10' container color={'white' } sx={{ bgcolor: 'black', color: 'white', py: 3 }}>
-      <Grid item xs={12} sm={6} md={3}>
+    <Grid className='bg-black text-white mt-10 text-center' container color={'white' } sx={{ bgcolor: 'black', color: 'white', py: 3 }}>
+      <Grid  item xs={12} sm={6} md={3}>
         <Typography variant="h6" gutterBottom>
           Company
         </Typography>
@@ -68,7 +68,7 @@ const Footer = () => {
           Terms
         </Typography>
       </Grid>
-      <Grid item xs={12} >
+      <Grid className='pt-20' item xs={12} >
         <Typography variant="body2" component="p" align="center">
           &copy; 2023 My Company. All rights reserved.
         </Typography>
