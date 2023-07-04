@@ -100,22 +100,6 @@ export default function Product() {
   ]);
 
   const handleFilter = (value, sectionId) => {
-    // const searchParams = new URLSearchParams(location.search);
-
-    // const filterParam = searchParams.get('f');
-    // const filterParts = filterParam ? filterParam.split('::') : [];
-
-    // const updatedFilterParts = filterParts.filter((part) => {
-    //   const [key] = part.split(':');
-    //   return key !== sectionId;
-    // });
-
-    // if (value) {
-    //   updatedFilterParts.push(`${sectionId}:${value}`);
-    // }
-
-    // searchParams.set('f', updatedFilterParts.join('::'));
-
     const searchParams = new URLSearchParams(location.search);
 
     let filterValues = searchParams.getAll(sectionId);
@@ -152,9 +136,8 @@ export default function Product() {
   useEffect(() => {
     if (customersProduct.loading) {
       setIsLoaderOpen(true);
-    }
-    else{
-      setIsLoaderOpen(false)
+    } else {
+      setIsLoaderOpen(false);
     }
   }, [customersProduct.loading]);
 
@@ -212,6 +195,7 @@ export default function Product() {
                         as="div"
                         key={section.id}
                         className="border-t border-gray-200 px-4 py-6"
+                        // open={false}
                       >
                         {({ open }) => (
                           <>
@@ -350,12 +334,14 @@ export default function Product() {
               Products
             </h2>
 
-            <div className="grid grid-cols-1 gap-x-8 gap-y-10 lg:grid-cols-5">
+<div>
+  <h2 className="py-5 font-semibold opacity-60 text-lg">Filters</h2>
+  <div className="grid grid-cols-1 gap-x-8 gap-y-10 lg:grid-cols-5">
               {/* Filters */}
               <form className="hidden lg:block border rounded-md p-5">
                 {filters.map((section) => (
                   <Disclosure
-                    defaultOpen={true}
+                    // defaultOpen={false}
                     as="div"
                     key={section.id}
                     className="border-b border-gray-200 py-6"
@@ -416,7 +402,7 @@ export default function Product() {
                 ))}
                 {singleFilter.map((section) => (
                   <Disclosure
-                    defaultOpen={true}
+                    // defaultOpen={true}
                     as="div"
                     key={section.id}
                     className="border-b border-gray-200 py-6"
@@ -478,6 +464,8 @@ export default function Product() {
                 </div>
               </div>
             </div>
+</div>
+            
           </section>
         </main>
 
