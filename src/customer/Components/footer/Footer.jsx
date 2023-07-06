@@ -4,7 +4,7 @@ const Footer = () => {
   return (
     <Grid className='bg-black text-white mt-10 text-center' container color={'white' } sx={{ bgcolor: 'black', color: 'white', py: 3 }}>
       <Grid  item xs={12} sm={6} md={3}>
-        <Typography variant="h6" gutterBottom>
+        <Typography className='pb-5' variant="h6" gutterBottom>
           Company
         </Typography>
         <Typography variant="body2" component="p" gutterBottom>
@@ -24,7 +24,7 @@ const Footer = () => {
         </Typography>
       </Grid>
       <Grid item xs={12} sm={6} md={3}>
-        <Typography variant="h6" gutterBottom>
+        <Typography className='pb-5' variant="h6" gutterBottom>
           Solutions
         </Typography>
         <Typography variant="body2" component="p" gutterBottom>
@@ -44,7 +44,7 @@ const Footer = () => {
         </Typography>
       </Grid>
       <Grid item xs={12} sm={6} md={3}>
-        <Typography variant="h6" gutterBottom>
+        <Typography className='pb-5' variant="h6" gutterBottom>
           Documentation
         </Typography>
         <Typography variant="body2" component="p" gutterBottom>
@@ -55,7 +55,7 @@ const Footer = () => {
         </Typography>
       </Grid>
       <Grid item xs={12} sm={6} md={3}>
-        <Typography variant="h6" gutterBottom>
+        <Typography className='pb-5' variant="h6" gutterBottom>
           Legal
         </Typography>
         <Typography variant="body2" component="p" gutterBottom>

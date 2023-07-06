@@ -18,14 +18,3 @@ export const homeCarouselData=[
 
 ]
 
-const data=[
-    "https://www.fabja.com/pub/media/codazon/slideshow/cache/1280x500/1/-/1-fabja-designer-saree.png",
-    "https://www.fabja.com/pub/media/codazon/slideshow/cache/1280x500/s/a/salwar_suits_online_shopping.jpg",
-    "https://www.fabja.com/pub/media/codazon/slideshow/cache/1280x500/n/e/new_arrivals_dresses_online.png",
-    "https://medias.utsavfashion.com/media/wysiwyg/home/2023/0405/hs-thu-gen-yes-springfiestain-040523.jpg",
-    "https://d101ghsnt3o063.cloudfront.net/images/bannerimages/20221114114510-jewellery-main.jpg",
-    "https://d101ghsnt3o063.cloudfront.net/images/bannerimages/20221114114450-flat50off-main.jpg",
-    "https://d101ghsnt3o063.cloudfront.net/images/bannerimages/20221114114527-2-Wedding-main.jpg",
-    "https://d101ghsnt3o063.cloudfront.net/images/bannerimages/11242022_113735_AM-1-bridal-flat60off-main.jpg",
-
-]

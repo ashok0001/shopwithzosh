@@ -33,9 +33,9 @@ const HomeProductSection = ({ section, data }) => {
     </div>
   ));
 
-  const slideInFromRight = (t) => {
-    return `translateX(${100 - t * 100}%)`;
-  };
+  // const slideInFromRight = (t) => {
+  //   return `translateX(${100 - t * 100}%)`;
+  // };
 
   return (
     <div className="relative px-4 sm:px-6 lg:px-8 ">
@@ -56,7 +56,7 @@ const HomeProductSection = ({ section, data }) => {
           <Button
             onClick={slideNext}
             variant="contained"
-            className="z-50 bg-white"
+            className="z-50 bg-[]"
             sx={{
               position: "absolute",
               top: "8rem",
@@ -67,7 +67,7 @@ const HomeProductSection = ({ section, data }) => {
             aria-label="next"
           >
             <ArrowForwardIosIcon
-              className="text-black"
+              className=""
               sx={{ transform: "rotate(-90deg)" }}
             />
           </Button>
@@ -77,7 +77,7 @@ const HomeProductSection = ({ section, data }) => {
           <Button
             onClick={slidePrev}
             variant="contained"
-            className="z-50 "
+            className="z-50 bg-[]"
             color="white"
             sx={{
               position: "absolute",
