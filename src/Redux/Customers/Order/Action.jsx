@@ -85,8 +85,8 @@ export const getOrderHistory = (reqData) => async (dispatch, getState) => {
       },
     };
 
-    const { data } = await axios.get(`${API_BASE_URL}/api/orders/user`, config);
-    console.log("order history ", data);
+    const { data } = await api.get(`/api/orders/user`);
+    console.log("order history -------- ", data);
     dispatch({
       type: GET_ORDER_HISTORY_SUCCESS,
       payload: data,

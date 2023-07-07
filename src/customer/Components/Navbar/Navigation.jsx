@@ -30,12 +30,14 @@ export default function Navigation() {
   const openUserMenu = Boolean(anchorEl);
   const jwt = localStorage.getItem("jwt");
   const location=useLocation();
+
   useEffect(() => {
     if (jwt) {
       dispatch(getUser(jwt));
       dispatch(getCart(jwt));
     }
   }, [jwt]);
+  
   const handleUserClick = (event) => {
     setAnchorEl(event.currentTarget);
   };

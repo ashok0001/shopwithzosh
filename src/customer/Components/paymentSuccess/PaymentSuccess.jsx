@@ -7,6 +7,7 @@ import StarIcon from "@mui/icons-material/Star";
 import { getOrderById } from "../../../Redux/Customers/Order/Action";
 import OrderTraker from "../orders/OrderTraker";
 import AddressCard from "../adreess/AdreessCard";
+import { useParams } from "react-router-dom";
 
 const PaymentSuccess = () => {
   // razorpay_payment_link_reference_id
@@ -14,12 +15,16 @@ const PaymentSuccess = () => {
   const [paymentId, setPaymentId] = useState("");
   const [referenceId, setReferenceId] = useState("");
   const [paymentStatus, setPaymentStatus] = useState("");
+  const {orderId}=useParams();
+
+  
 
   const jwt = localStorage.getItem("jwt");
   const dispatch = useDispatch();
   const { order } = useSelector((store) => store);
 
   useEffect(() => {
+    console.log("orderId",orderId)
     const urlParams = new URLSearchParams(window.location.search);
     setPaymentId(urlParams.get("razorpay_payment_id"));
     setReferenceId(urlParams.get("razorpay_payment_link_reference_id"));
@@ -27,12 +32,12 @@ const PaymentSuccess = () => {
   }, []);
 
   useEffect(() => {
-    if (paymentId && referenceId && paymentStatus === "paid") {
-      const data = { orderId: referenceId, paymentId, jwt };
+    if (paymentId && paymentStatus === "paid") {
+      const data = { orderId, paymentId, jwt };
       dispatch(updatePayment(data));
-      dispatch(getOrderById(referenceId));
+      dispatch(getOrderById(orderId));
     }
-  }, [referenceId, paymentId]);
+  }, [orderId, paymentId]);
 
   return (
     <div className="px-2 lg:px-36">
