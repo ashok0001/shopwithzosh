@@ -197,9 +197,9 @@ const jwt=localStorage.getItem("jwt")
                 onChange={handleChange}
                 label="Top Level Category"
               >
-                <MenuItem value="Men">Men</MenuItem>
-                <MenuItem value="Women">Women</MenuItem>
-                <MenuItem value="Kids">Kids</MenuItem>
+                <MenuItem value="men">Men</MenuItem>
+                <MenuItem value="women">Women</MenuItem>
+                <MenuItem value="kids">Kids</MenuItem>
               </Select>
             </FormControl>
           </Grid>
@@ -212,9 +212,9 @@ const jwt=localStorage.getItem("jwt")
                 onChange={handleChange}
                 label="Second Level Category"
               >
-                <MenuItem value="Clothing">Clothing</MenuItem>
-                <MenuItem value="Accessories">Accessories</MenuItem>
-                <MenuItem value="Brands">Brands</MenuItem>
+                <MenuItem value="clothing">Clothing</MenuItem>
+                <MenuItem value="accessories">Accessories</MenuItem>
+                <MenuItem value="brands">Brands</MenuItem>
               </Select>
             </FormControl>
           </Grid>
@@ -229,9 +229,9 @@ const jwt=localStorage.getItem("jwt")
               >
                 <MenuItem value="top">Tops</MenuItem>
                 <MenuItem value="women_dress">Dresses</MenuItem>
-                <MenuItem value="T-Shirts">T-Shirts</MenuItem>
+                <MenuItem value="t-shirts">T-Shirts</MenuItem>
                 <MenuItem value="saree">Saree</MenuItem>
-                <MenuItem value="Lengha Choli">Lengha Choli</MenuItem>
+                <MenuItem value="lengha_choli">Lengha Choli</MenuItem>
               </Select>
             </FormControl>
           </Grid>
