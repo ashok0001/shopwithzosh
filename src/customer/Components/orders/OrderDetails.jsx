@@ -41,11 +41,11 @@ const OrderDetails = () => {
             <OrderTraker
               activeStep={
                 order.order?.orderStatus === "PLACED"
-                  ? 2
+                  ? 1
                   : order.order?.orderStatus === "CONFIRMED"
-                  ? 3
+                  ? 2
                   : order.order?.orderStatus === "SHIPPED"
-                  ? 4
+                  ? 3
                   : 5
               }
             />
