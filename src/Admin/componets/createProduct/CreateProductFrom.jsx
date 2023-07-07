@@ -227,11 +227,10 @@ const jwt=localStorage.getItem("jwt")
                 onChange={handleChange}
                 label="Third Level Category"
               >
-                <MenuItem value="Tops">Tops</MenuItem>
-                <MenuItem value="Dresses">Dresses</MenuItem>
+                <MenuItem value="top">Tops</MenuItem>
+                <MenuItem value="women_dress">Dresses</MenuItem>
                 <MenuItem value="T-Shirts">T-Shirts</MenuItem>
-                <MenuItem value="Saree">Saree</MenuItem>
-                <MenuItem value="Saree">Saree</MenuItem>
+                <MenuItem value="saree">Saree</MenuItem>
                 <MenuItem value="Lengha Choli">Lengha Choli</MenuItem>
               </Select>
             </FormControl>
